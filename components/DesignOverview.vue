@@ -21,7 +21,7 @@
         两个步骤
       </div>
       <div grid grid-rows-2 gap-8 flex-grow>
-        <div relative border-2 border-gray-400 rounded-lg px-2 py-1 data-arrow-from="A1 A2 A3 A4 A5">
+        <div view-transition-analysis relative border-2 border-gray-400 rounded-lg px-2 py-1 data-arrow-from="A1 A2 A3 A4 A5">
           <div text-sm font-bold>1. 分析</div>
           <img block absolute right-8 top-2 style="height: calc(100% - 16px)" src="../assets/AnalyzerInner.svg" />
         </div>
@@ -37,7 +37,7 @@
         <span text-sm op-70>(基本解耦)</span>
       </div>
       <div flex-grow grid grid-rows-5 gap-2 class="optimizations2">
-        <div data-arrow-to="A1 T1">死代码消除</div>
+        <div data-arrow-to="A1 T1"><span view-transition-dce>死代码消除</span></div>
         <div data-arrow-to="A2 T2">常量折叠</div>
         <div data-arrow-to="A3 T3">属性名简化</div>
         <div data-arrow-to="A4 T4">React.js 优化</div>

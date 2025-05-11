@@ -55,7 +55,7 @@ fonts:
 <div fixed right-4 w-100 top-22>
 <img src="./assets/jetbrains.png" w-full />
 <div text-center text-sm op-60>
-编程语言的使用情况 (Jetbrains, 2024)
+编程语言的使用情况 <span text-xs>(Jetbrains, 2024)</span>
 </div>
 </div>
 
@@ -77,7 +77,7 @@ A --> E(节约带宽) ---> D
 A --> F(满足边缘函数体积要求)
 ```
 
-<div v-drag="[499,270,227,NaN]" px-4 bg-gray-200 rounded-lg>
+<div v-drag="[494,269,227,NaN]" px-4 bg-gray-200 rounded-lg>
 
 JavaScript 是**唯一**需要压缩自身体积的高级语言
 
@@ -85,9 +85,9 @@ JavaScript 是**唯一**需要压缩自身体积的高级语言
 
 ---
 dragPos:
-  semantic: 357,130,385,80
-  grammar: 358,219,421,80
-  binary: 358,294,388,75
+  semantic: 356,128,385,80
+  grammar: 355,222,421,80
+  binary: 355,300,388,75
   title: 355,51,388,56
 ---
 
@@ -142,7 +142,7 @@ Gzip 压缩，减小传输体积
 
 <img src="./assets/CurveArrow.svg" v-drag="[318,142,20,NaN]" op-60 />
 
-<img src="./assets/CurveArrow.svg" v-drag="[318,244,20,NaN]" op-60 />
+<img src="./assets/CurveArrow.svg" v-drag="[317,240,20,NaN]" op-60 />
 
 <img src="./assets/CurveArrow.svg" v-drag="[318,312,20,NaN]" op-60 />
 
@@ -242,8 +242,8 @@ i[yes] {
 # 目标
 
 <div grid grid-cols-2 gap-6 children:h-34>
-<div border="2 #999999 rounded-lg" px-4 py-2>
-  <div text-xl mb-2 font-serif> 高精度 </div>
+<div border="1.5 #555 rounded-lg" px-4 py-2>
+  <div text-xl mb-2 font-serif> <carbon-navaid-military-civil /> 高精度 </div>
   <div class="!children:children:leading-6">
 
 - inter-procedural
@@ -252,16 +252,16 @@ i[yes] {
 
 </div>
 </div>
-<div border="2 #999999 rounded-lg" px-4 py-2>
-  <div text-xl mb-2 font-serif> 可靠 </div>
+<div border="1.5 #555 rounded-lg" px-4 py-2>
+  <div text-xl mb-2 font-serif> <carbon-checkmark /> 可靠 </div>
   <div> 仅作少数合理假设，<br>保证优化前后程序等价 </div>
 </div>
-<div border="2 #999999 rounded-lg" px-4 py-2>
-  <div text-xl mb-2 font-serif> 非迭代 </div>
-  <div> 优化是幂等的，只需执行一次 </div>
+<div border="1.5 #555 rounded-lg" px-4 py-2>
+  <div text-xl mb-2 font-serif> <carbon-rocket /> 非迭代 </div>
+  <div> 优化是幂等的，只需执行一轮 </div>
 </div>
-<div border="2 #999999 rounded-lg" px-4 py-2>
-  <div text-xl mb-2 font-serif> 可拓展 </div>
+<div border="1.5 #555 rounded-lg" px-4 py-2>
+  <div text-xl mb-2 font-serif> <carbon-new-tab /> 可拓展 </div>
   <div> 允许解耦地自定义外部函数的行为，以提供专门的优化 </div>
 </div>
 </div>
@@ -328,7 +328,7 @@ const counter2 = makeCounter("2");
 <div v-drag="[498,307,245,NaN]" bg-gray-200 px-4 py-2 rounded-lg>
 
 - 做最坏的假设
-- 但又要达到优化效果
+- 但又要有优化效果
 
 </div>
 
@@ -520,17 +520,23 @@ hide: true
 
 
 ---
+transition: view-transition
+---
 
-# 整体架构 {.text-center.!text-3xl.mt--2}
+# 整体架构 {.text-center.my--2}
 
 <DesignOverview scale-115 origin-left-top ml-10 />
 
 ---
 
+<div fixed inset--4 view-transition-analysis border-2 border-gray-400 rounded-lg />
+
 # 如何描述值？
 
 <img src="./assets/Entity.svg" v-drag="[58,65,655,NaN]" />
 
+---
+transition: view-transition
 ---
 
 # 有哪些 "Value"？
@@ -571,7 +577,7 @@ hide: true
 </div>
 
 <div flex flex-col gap-2>
-<div border="2 #259117 rounded-lg" p-2>
+<div border="2 #259117 rounded-lg" p-2 view-transition-object>
   <div text-center> Object </div>
 </div>
 <div border="2 #259117 rounded-lg" p-2>
@@ -618,6 +624,8 @@ hide: true
 </div>
 
 ---
+
+<div fixed inset-0 view-transition-object border="4 #259117 rounded-lg" />
 
 <div relative flex gap-12 mt--5>
 <div>
@@ -704,10 +712,8 @@ Metadata
 
 </div>
 
-<div v-drag="[501,331,287,76]">
-
-# Object Value {.!text-10}
-
+<div v-drag="[501,331,287,76]" text-10 class="text-#259117">
+Object Value
 </div>
 
 ---
@@ -719,37 +725,37 @@ class: Execution
 
 <div grid grid-cols-2 gap-4>
 
-```js {1|2|3|6|3|7|8|3}
-let x = 0, y = 0;
-setInterval(() => {
-  console.log(x, y);
-}, 100);
-// ...
-x++;
-x++;
-y++;
+```js {1|2|3|4}
+let [[x]] = 1;
+if (unknown)
+  x++;
+console.log(x);
 ```
 
-<div mr--10>
+<div>
 
-<v-clicks at="1">
+### 执行依赖
 
-- `setInterval` 在未知时刻调用回调
-- 先分析一次，发现依赖是 <Deps>x,y</Deps>
-- `x` 改变了，它是回调函数的依赖
-- 重新分析回调函数。新的依赖是 <Deps>y</Deps>
-- `x` 又改变了，但它不再是回调函数的依赖
-- `y` 改变了，它是回调函数的依赖
-- 重新分析回调函数。新的依赖是 <Deps></Deps>
+<div v-click="[2,3]">
+
+- `unknown` 为真值 [*covered later]{.op-60.text-xs.italic}
+
+</div>
+
+### 表达式的值 <div float-right text-4 mt-2 mb--2 op-60 font-serif font-bold> 依赖 </div>
+
+<v-clicks at="0">
+
+- `x`: Number(1) <Deps float-right>1</Deps>
+- `a`: Unknown <Deps float-right></Deps>
+- `x'`: Number(2) <Deps float-right>x</Deps>
+- `x''`: Union\[`x`, `x'`\] <Deps float-right>a</Deps> <br>
+  `console.log`: Unknown <Deps float-right></Deps>
 
 </v-clicks>
 
 </div>
 </div>
-
-<!--
-例子放在前面
--->
 
 ---
 
@@ -762,12 +768,12 @@ y++;
 - **自我触发**：对自身先前的写入会触发重新分析
 - **回调触发**：后续对其依赖的写入会触发重新分析
 
-| **情况** | **自我触发** | **回调触发** |
-| ---- | ---- | ---- |
-| 未知次数的循环 | 是 | 否 |
-| 未知深度的递归 | 是 | 是 |
-| 生成器 / 异步函数 | 否 | 是 |
-| 完全失去追踪 | 是 | 是 |
+| **情况** | **例子** | **自我触发** | **回调触发** |
+| ---- | ---- | ---- | ---- |
+| 未知次数的循环 | `while (unknown) { ... }` | 是 | 否 |
+| 未知深度的递归 | `function rec() { rec() }` | 是 | 是 |
+| 生成器 / 异步函数 | `async gen*() { ... }` | 否 | 是 |
+| 完全失去追踪 | `setTimeout(() => { ... }, 1)` | 是 | 是 |
 
 ---
 hide: true
@@ -785,6 +791,8 @@ A -->|No| B("Union[All]")
 
 ```
 
+---
+hide: true
 ---
 
 # 优化手段
@@ -813,6 +821,15 @@ A -->|No| B("Union[All]")
 </div>
 
 ---
+transition: view-transition
+---
+
+# 整体架构 {.text-center.my--2}
+
+<DesignOverview scale-115 origin-left-top ml-10 />
+
+---
+hide: true
 dragPos:
   a: 54,94,146,56
   b: 327,305,126,42
@@ -888,7 +905,7 @@ Other Conditional Nodes
 
 ---
 
-## Optimizer{.sect} Dead Code Elimination
+# 死代码消除 {.view-transition-dce}
 
 条件真假不确定，还能优化吗？
 
@@ -943,7 +960,7 @@ f();
 class: Execution
 ---
 
-## Optimizer{.sect} Dead Code Elimination
+# 死代码消除 {.!text-3xl.mt--2}
 
 ```js {none}{class:'w-48', lines:false}
 if (unknown)
@@ -961,7 +978,7 @@ else
 ```
 
 <div v-drag="[300,80,321,26]" font-serif font-bold>
-Execution Dependency
+添加依赖：
 </div>
 
 
@@ -990,9 +1007,9 @@ BranchDep (<br>
 
 ---
 
-## Optimizer{.sect} Dead Code Elimination
+# 死代码消除 {.!text-3xl.mt--2}
 
-<div flex gap-4>
+<div flex gap-4 mt--2>
 <div>
 
 <div text-sm font-bold>
@@ -1049,11 +1066,9 @@ for conditional node N:
 
 ---
 
-## Optimizer{.sect} Constant Folding
+# 常量折叠
 
-当一个节点在运行时只可能出现一种字面量值，就可以将其折叠为字面量值。
-
-而此处的“运行时”是指优化后的运行时，需要考虑死代码消除的影响。比如：
+若一个节点**优化后**只可能为一种字面量值，就可以将其折叠：
 
 <div flex>
 
@@ -1088,7 +1103,7 @@ x = a;
 
 ---
 
-## Optimizer{.sect} Constant Folding
+# 常量折叠 {.!text-3xl.mt--2}
 
 <div flex mt-4>
 
@@ -1129,7 +1144,7 @@ A --->|"NotFoldableDep"| C
 clicks: 1
 ---
 
-## Optimizer{.sect} Constant Folding
+# 常量折叠 {.!text-3xl.mt--2}
 
 如何删除计算过程？
 
@@ -1165,34 +1180,32 @@ A ---->|Dep| C(（计算过程）)
 
 ---
 
-### Optimizer{.sect} Property Name Mangling
+# 对象属性名缩减
 
 <div />
 
-现有的 Minifier 能完美地重命名变量名，比如：
+据估计，属性名约占现有工具输出代码体积的 [30%]{.font-mono.font-bold}：
 
 ```js {*}{lines:false}
-const [[variableName]] = { propertyName: 42 };
-log([[variableName]].propertyName * 2);
+const [[variableName]] = { [[propertyName{4}]]: 42 };
+log([[variableName]].[[propertyName{4}]] * 2);
 ```
 
-输出为：
+<carbon-arrow-down text-3xl my-2 op-60 ml-2/>
 
 ```js {*}{lines:false}
-let [[e]]={propertyName:42};log([[e]].propertyName*2)
+let [[e]]={[[propertyName{4}]]:42};log([[e]].[[propertyName{4}]]*2)
 ```
-
-但 <code><span color="#B07D48">propertyName</span></code> 仍是原始的字符串。
-
-据估计，属性名约占 Minifier 输出代码体积的 [30%]{.font-mono.font-bold}。
 
 <style scoped>
 .shiki {
-  --slidev-code-font-size: 14px;
+  --slidev-code-font-size: 16px;
   --slidev-code-line-height: 1.6;
 }
 </style>
 
+---
+hide: true
 ---
 
 ### Optimizer{.sect} Property Name Mangling
@@ -1216,6 +1229,8 @@ log(obj.[[a{1}]], obj[key]);
 基于规则的局限性：效果好和正确性不可兼得 {.text-xl}
 
 ---
+hide: true
+---
 
 ### Optimizer{.sect} Property Name Mangling
 
@@ -1230,6 +1245,8 @@ log(obj.[[a{1}]], obj[key]);
 
 <img src="./assets/ts-rename.png" v-drag="[405,216,348,NaN]" border="2 gray-200 rounded-lg" />
 
+---
+hide: true
 ---
 
 ### Optimizer{.sect} Property Name Mangling
@@ -1253,6 +1270,7 @@ console.log(s1 === s2);
 为什么可以优化？因为有意义的是相等性，而非字符串本身。
 
 ---
+hide: true
 class: Execution
 zoom: 0.9
 ---
@@ -1292,17 +1310,19 @@ Not <Deps><code>a</code>,<code>c<sub>2</sub></code></Deps>
 
 ---
 
-### Optimizer{.sect} Property Name Mangling
+# 对象属性名缩减 {.!text-3xl.mt--2}
 
-The dependencies (**constraints**) are:
+引入了以下依赖 (**约束**)：
 
 | | |
 | ---- | ---- |
-| <Dep><span text-dep>NOMANGLE</span>(<Dep>atom(1)</Dep>)</Dep> | <Dep>atom(1)</Dep> should remain unchanged |
-| <Dep><span text-dep>EQUAL</span>(<Dep>atom(1)</Dep>,<Dep>atom(2)</Dep>)</Dep> | <Dep>atom(1)</Dep> and <Dep>atom(2)</Dep> should be equal |
-| <Dep><span text-dep>UNEQUAL</span>(<Dep>atom(1)</Dep>,<Dep>atom(2)</Dep>)</Dep> | <Dep>atom(1)</Dep> and <Dep>atom(2)</Dep> should not be equal |
-| <Dep><span text-dep>UNIQUE</span>(<Dep>group(1)</Dep>,<Dep>atom(1)</Dep>)</Dep> | <Dep>atom(1)</Dep> should be unique among <Dep>group(1)</Dep> |
+| <Dep><span text-dep>NOMANGLE</span>(<Dep>atom(1)</Dep>)</Dep> | <Dep>atom(1)</Dep> 不能变动 |
+| <Dep><span text-dep>EQUAL</span>(<Dep>atom(1)</Dep>,<Dep>atom(2)</Dep>)</Dep> | <Dep>atom(1)</Dep> 和 <Dep>atom(2)</Dep> 应当保持相等 |
+| <Dep><span text-dep>UNEQUAL</span>(<Dep>atom(1)</Dep>,<Dep>atom(2)</Dep>)</Dep> | <Dep>atom(1)</Dep> 和 <Dep>atom(2)</Dep> 应当保持不同 |
+| <Dep><span text-dep>UNIQUE</span>(<Dep>group(1)</Dep>,<Dep>atom(1)</Dep>)</Dep> | <Dep>atom(1)</Dep> 应当在 <Dep>group(1)</Dep> 保持唯一 |
 
+---
+hide: true
 ---
 
 ### Optimizer{.sect} Property Name Mangling
@@ -1338,6 +1358,8 @@ for each C in all constraints:
 -->
 
 
+---
+hide: true
 ---
 
 ## Optimizer{.sect} Property Name Mangling
@@ -1455,4 +1477,18 @@ table {
 layout: end
 ---
 
-Thank you!
+<div text-80 v-drag="[369,141,40,40,-12]" op-50>
+<carbon-star-filled text-yellow absolute />
+<carbon-star-filled text-white op-20 absolute />
+</div>
+
+<div text-3xl>
+
+感谢聆听！
+
+</div>
+
+<div text-white mt-24 mb--10 text-left z-101>
+项目仓库: <span font-mono tracking-0>github.com/kermanx/tree-shaker</span><br>
+&emsp;幻灯片: <span font-mono tracking-0>kermanx.com/jsshaker-ustc</span>
+</div>

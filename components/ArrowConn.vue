@@ -12,14 +12,15 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted, computed, watch } from 'vue';
-import { debounce } from 'lodash-es'; // Use lodash for debouncing
+import { ref, reactive, onMounted, onUnmounted, computed, watch, inject } from 'vue';
+import { debounce, throttle } from 'lodash-es'; // Use lodash for debouncing
 import { useIsSlideActive, useNav, useSlideContext } from '@slidev/client'
+import { injectionSlideElement } from '@slidev/client/constants.ts'
 
 const isActive = useIsSlideActive()
 const context = useSlideContext()
 const nav = useNav()
-// const slideElement = inject(injectionSlideElement);
+const slideElement = inject(injectionSlideElement);
 
 // --- Props ---
 const props = defineProps({
@@ -85,9 +86,10 @@ const svgStyle = computed(() => ({
 
 // Find elements based on data attributes and ID
 const findElements = () => {
+  const slideElement = document.querySelector(`[data-slidev-no="${context.$page.value}"]`);
   // Important: Search the entire document, as the divs might be anywhere
-  const fromEl = document.querySelector(`[data-arrow-from~="${props.arrowId}"]`);
-  const toEl = document.querySelector(`[data-arrow-to~="${props.arrowId}"]`);
+  const fromEl = slideElement?.querySelector(`[data-arrow-from~="${props.arrowId}"]`);
+  const toEl = slideElement?.querySelector(`[data-arrow-to~="${props.arrowId}"]`);
   return { fromEl, toEl };
 };
 
@@ -158,9 +160,12 @@ const updateArrowPosition = () => {
 };
 
 // Debounced version for frequent updates
-const debouncedUpdate = debounce(updateArrowPosition, props.updateDebounceMs);
+const debouncedUpdate = throttle(updateArrowPosition, props.updateDebounceMs, {
+  leading: true,
+  trailing: true,
+});
 
-watch(() => context.$scale.value, () => {
+watch(() => [context.$scale.value, isActive.value], () => {
   // Update arrow position when scale changes
   debouncedUpdate();
 });
