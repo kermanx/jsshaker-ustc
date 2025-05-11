@@ -24,39 +24,17 @@ fonts:
 指导老师：张昱 丁伯尧
 </div>
 
-<!--
-名字
-指导老师
--->
-
 ---
 
-# 背景
-
-```mermaid
-graph LR;
-
-A(体积减小) --> B(网页加载速度提升) --> C(用户留存率提升) --> D(经济效益)
-A --> E(节约带宽) ---> D
-```
-
-- HTML/CSS/Media: 压缩技术成熟
-- JS: **体积大，阻塞加载，有较多无效代码**
-
-<!--
-中英文夹杂问题
-
-- 实证数据
-- HTML 行数
--->
-
----
+<div mt--2>
 
 # <logos-javascript /> <span class="text-black">JavaScript</span>
 
-#### 近几十年来最广泛使用的编程语言 {.mt-2}
+</div>
 
-<div mb--3>
+#### 最广泛使用的编程语言
+
+<div mb--3 mt--2>
 
 根据 [JetBrains 2024 年的报告](https://www.jetbrains.com/lp/devecosystem-2024/)，
 
@@ -70,9 +48,16 @@ A --> E(节约带宽) ---> D
 - JIT 支持
 - 现代语言特性、工程化
 
-#### 不可代替的编程语言 {.mt-2}
+#### 不可代替性 {.mt-2}
 
 - 浏览器唯一原生支持的语言
+
+<div fixed right-4 w-100 top-22>
+<img src="./assets/jetbrains.png" w-full />
+<div text-center text-sm op-60>
+编程语言的使用情况 (Jetbrains, 2024)
+</div>
+</div>
 
 <style>
 .slidev-page li>p {
@@ -81,16 +66,34 @@ A --> E(节约带宽) ---> D
 </style>
 
 ---
+
+# 代码体积为何重要?
+
+```mermaid
+graph LR;
+
+A(JavaScript 体积减小) --> B(网页加载速度提升) --> C(用户留存率提升) --> D(经济效益)
+A --> E(节约带宽) ---> D
+A --> F(满足边缘函数体积要求)
+```
+
+<div v-drag="[499,270,227,NaN]" px-4 bg-gray-200 rounded-lg>
+
+JavaScript 是**唯一**需要压缩自身体积的高级语言
+
+</div>
+
+---
 dragPos:
-  semantic: 361,122,385,80
-  grammar: 362,230,421,80
-  binary: 362,296,388,75
-  title: 362,48,388,56
+  semantic: 357,130,385,80
+  grammar: 358,219,421,80
+  binary: 358,294,388,75
+  title: 355,51,388,56
 ---
 
 <div v-drag="'title'">
 
-# 优化的三个步骤
+# 体积优化的步骤
 
 </div>
 
@@ -119,20 +122,20 @@ function a(){console.log("Hello, World")}a();
 
 <div v-drag="'semantic'">
 
-**步骤一：语义层次** （复杂度高）<br>
+**[步骤一：语义层次]{.text-red}**&emsp;（复杂度高）<br>
 进行程序分析，优化代码体积
 
 </div>
 <div v-drag="'grammar'">
 
-**步骤二：语法层次** （已经完善）<br>
+**[步骤二：语法层次]{.text-blue}**&emsp;（已经完善）<br>
 按照语法结构，删除无用字符
 
 
 </div>
 <div v-drag="'binary'">
 
-**步骤三：二进制层次** <br>
+**[步骤三：二进制层次]{.text-gray-600}**（语言无关） <br>
 Gzip 压缩，减小传输体积
 
 </div>
@@ -150,10 +153,10 @@ Gzip 压缩，减小传输体积
 <div v-drag="[65,81,75,20]" border="rounded-md red 2" />
 
 
-<div v-drag="[126,186,40,20]" border="rounded-md red 2" />
+<div v-drag="[126,186,40,20]" border="rounded-md blue 2" />
 
 
-<div v-drag="[59,204,20,20]" border="rounded-md red 2" />
+<div v-drag="[59,204,20,20]" border="rounded-md blue 2" />
 
 <div v-drag="[254,119,55,NaN]" text-xs text-red>函数特化</div>
 
@@ -181,11 +184,103 @@ Background and Motivation
 
 ---
 
+# 现有工具
+
+| 名称 | 发起时间 | 空白字符<br>消除 | 常量<br>折叠 | 跨模块<br>优化 | 死分支<br>删除 | 函数<br>内联 | 函数<br>特化 | 无用属性<br>删除 | 属性名<br>缩减 |
+| - | - | - | - | - | - | - | - | - | - |
+| [Closure Compiler](https://github.com/google/closure-compiler) | 2009 | <i yes /> | <i yes /> | <i no /> | <i yes /> | <i yes /> | <i no /> | <i no /> | 不可靠 |
+| [Terser](https://terser.org/) | 2012 | <i yes /> | <i yes /> | <i no /> |  <i yes /> | <i no /> | <i no /> | <i no /> | <i no /> |
+| [UglifyJS](https://github.com/mishoo/UglifyJS/) | 2012 | <i yes /> | <i yes /> | <i no /> |  <i yes /> | <i no /> |  <i no /> |  <i no /> |  不可靠 |
+| [Rollup](https://rollupjs.org/) | 2015 | <i no /> | <i no /> | <i yes /> | <i yes /> | <i no /> | <i yes /> | 浅层 | <i no />  |
+| [swc](https://swc.rs/) | 2017 |  <i yes /> | <i yes /> | <i no /> | <i yes /> |  <i yes /> |  <i no /> | <i no />  |<i no />  |
+| [prepack](http://prepack.io/) (已放弃) | 2017 | <i no /> | <i yes /> | <i no />  | <i yes /> | <i yes />  | <i yes /> |  <i yes /> | <i no /> | 
+| [esbuild](https://esbuild.github.io/) | 2020 |  <i yes /> | <i yes /> | <i no /> | <i yes /> |  <i no />  | <i no /> | <i no />  |<i no />  |
+
+<div mt-4>
+
+- 各工具侧重点不同，通常组合使用（e.g. Rollup + Terser）
+- 除 prepack 外，均为基于规则集的迭代式优化，缺乏深度优化
+
+</div>
+
+
+<div v-drag="[602,39,140,NaN]" text-xs hidden>
+
+<carbon-checkmark />: 支持<br>
+<carbon-close-large />: 不支持<br>
+<carbon-circle-outline />: 支持但不可靠<br>
+
+
+</div>
+
+<style scoped>
+table {
+  --uno: text-xs mt--2;
+}
+:deep(td) {
+  padding: 4px 0.5rem !important;  
+}
+:deep(th) {
+  padding: 4px 0.5rem !important;  
+}
+
+i[no] {
+  --uno: i-carbon-close-large block w-4 h-4 text-red-600;
+}
+
+i[yes] {
+  --uno: i-carbon-checkmark block w-4 h-4 text-green-800;
+}
+
+/* :deep(td:first-child) {
+  --uno: font-bold;
+} */
+</style>
+
+---
+
+# 目标
+
+<div grid grid-cols-2 gap-6 children:h-34>
+<div border="2 #999999 rounded-lg" px-4 py-2>
+  <div text-xl mb-2 font-serif> 高精度 </div>
+  <div class="!children:children:leading-6">
+
+- inter-procedural
+- context-sensitive 
+- field-sensitive
+
+</div>
+</div>
+<div border="2 #999999 rounded-lg" px-4 py-2>
+  <div text-xl mb-2 font-serif> 可靠 </div>
+  <div> 仅作少数合理假设，<br>保证优化前后程序等价 </div>
+</div>
+<div border="2 #999999 rounded-lg" px-4 py-2>
+  <div text-xl mb-2 font-serif> 非迭代 </div>
+  <div> 优化是幂等的，只需执行一次 </div>
+</div>
+<div border="2 #999999 rounded-lg" px-4 py-2>
+  <div text-xl mb-2 font-serif> 可拓展 </div>
+  <div> 允许解耦地自定义外部函数的行为，以提供专门的优化 </div>
+</div>
+</div>
+
+<!--
+例子：揭示其中的一点
+-->
+
+---
+
+<div mt--3>
+
 # 为何困难? {.!text-8} 
+
+</div>
 
 ```js {*}{lines:false}
 function makeCounter(options) {
-  let count = options?.init || +options || 0;
+  let count = options?.init || options * 0;
   return () => {
     return count++;
   }
@@ -204,33 +299,33 @@ const counter2 = makeCounter("2");
 </div>
 
 
-<div v-drag="[77,147,159,64]" border="rounded-md red 2" />
+<div v-drag="[78,134,159,64]" border="rounded-md red 2" />
 
-<div v-drag="[320,126,77,20]" border="rounded-md red 2" />
+<div v-drag="[320,114,99,20]" border="rounded-md red 2" />
 
-<div v-drag="[78,273,91,20]" border="rounded-md red 2" />
+<div v-drag="[77,261,91,20]" border="rounded-md red 2" />
 
-<div v-drag="[95,294,114,20]" border="rounded-md red 2" />
+<div v-drag="[96,282,114,20]" border="rounded-md red 2" />
 
-<div v-drag="[298,356,46,20]" border="rounded-md red 2" />
+<div v-drag="[297,344,46,20]" border="rounded-md red 2" />
 
-<div v-drag="[111,209,609,NaN]" text-red>
+<div v-drag="[241,174,609,NaN]" text-red>
 函数是一等公民
 <span text-black text-sm pl-1>(<span font-mono>67.08%</span> 的项目使用该特性<sup op-50>1</sup>)</span>
 </div>
 
-<div v-drag="[122,311,484,NaN]" text-red>
+<div v-drag="[124,300,484,NaN]" text-red>
 动态属性名
 <span text-black text-sm pl-1>(<span font-mono>24.05%</span> 的项目使用该特性<sup op-50>1</sup>)</span>
 </div>
 
-<div v-drag="[22,268,101,NaN]" text-red>原型链</div>
+<div v-drag="[183,255,152,NaN]" text-red>原型链的使用</div>
 
-<div v-drag="[346,143,101,NaN]" text-red>弱类型</div>
+<div v-drag="[366,132,101,NaN]" text-red>弱类型</div>
 
-<div v-drag="[309,331,101,NaN]" text-red>多态</div>
+<div v-drag="[348,338,101,NaN]" text-red>多态</div>
 
-<div v-drag="[514,316,245,NaN]" bg-gray-200 px-4 py-2 rounded-lg>
+<div v-drag="[498,307,245,NaN]" bg-gray-200 px-4 py-2 rounded-lg>
 
 - 做最坏的假设
 - 但又要达到优化效果
@@ -317,61 +412,6 @@ ArrowFunctionDeclarations:  87.97
 -->
 
 ---
-
-# 现有工具
-
-| 名称 | 发起时间 | 空白字符<br>消除 | 常量<br>折叠 | 跨模块<br>优化 | 死分支<br>删除 | 函数<br>内联 | 函数<br>特化 | 无用属性<br>删除 | 属性名<br>缩减 |
-| - | - | - | - | - | - | - | - | - | - |
-| [Closure Compiler](https://github.com/google/closure-compiler) | 2009 | <i yes /> | <i yes /> | <i no /> | <i yes /> | <i yes /> | <i no /> | <i no /> | 不可靠 |
-| [Terser](https://terser.org/) | 2012 | <i yes /> | <i yes /> | <i no /> |  <i yes /> | <i no /> | <i no /> | <i no /> | <i no /> |
-| [UglifyJS](https://github.com/mishoo/UglifyJS/) | 2012 | <i yes /> | <i yes /> | <i no /> |  <i yes /> | <i no /> |  <i no /> |  <i no /> |  不可靠 |
-| [Rollup](https://rollupjs.org/) | 2015 | <i no /> | <i no /> | <i yes /> | <i yes /> | <i no /> | <i yes /> | 浅层 | <i no />  |
-| [swc](https://swc.rs/) | 2017 |  <i yes /> | <i yes /> | <i no /> | <i yes /> |  <i yes /> |  <i no /> | <i no />  |<i no />  |
-| [prepack](http://prepack.io/) (已放弃) | 2017 | <i no /> | <i yes /> | <i no />  | <i yes /> | <i yes />  | <i yes /> |  <i yes /> | <i no /> | 
-| [esbuild](https://esbuild.github.io/) | 2020 |  <i yes /> | <i yes /> | <i no /> | <i yes /> |  <i no />  | <i no /> | <i no />  |<i no />  |
-
-<div mt-4>
-
-- 各工具侧重点不同，通常组合使用（e.g. Rollup + Terser）
-- 除 prepack 外，均为基于规则集的迭代式优化，缺乏深度优化
-
-</div>
-
-
-<div v-drag="[602,39,140,NaN]" text-xs hidden>
-
-<carbon-checkmark />: 支持<br>
-<carbon-close-large />: 不支持<br>
-<carbon-circle-outline />: 支持但不可靠<br>
-
-
-</div>
-
-<style scoped>
-table {
-  --uno: text-xs mt--2;
-}
-:deep(td) {
-  padding: 4px 0.5rem !important;  
-}
-:deep(th) {
-  padding: 4px 0.5rem !important;  
-}
-
-i[no] {
-  --uno: i-carbon-close-large block w-4 h-4 text-red-600;
-}
-
-i[yes] {
-  --uno: i-carbon-checkmark block w-4 h-4 text-green-800;
-}
-
-/* :deep(td:first-child) {
-  --uno: font-bold;
-} */
-</style>
-
----
 hide: true
 ---
 
@@ -436,6 +476,15 @@ console.log(2);
 
 ---
 
+# 三种思路 {.text-center.!text-3xl.mt--4}
+
+<div fixed inset-0 flex items-center justify-center pt-6 pl-6>
+<img w-160 src="./assets/ThreeMethods.svg" />
+</div>
+
+
+---
+
 # 改进
 
 ### 抽象
@@ -455,15 +504,6 @@ console.log(2);
 <carbon-arrow-right /> 实现更简单；优化后代码体积可控
 
 ---
-
-# 三种思路 {.text-center.!text-3xl.mt--2}
-
-<div fixed inset-0 flex items-center justify-center pt-8 pl-6>
-<img w-160 src="./assets/ThreeMethods.svg" />
-</div>
-
-
----
 hide: true
 ---
 
@@ -478,101 +518,12 @@ hide: true
 | DCE | 反复应用一组规则去删除无用代码 <div op-80> "Exclude dead code" </div> |
 | Prepack etc. | 记录副作用再重新生成等效代码 <div op-80> "Interpret and rebuild" </div> |
 
----
-
-# 目标
-
-<div grid grid-cols-2 gap-6 children:h-34>
-<div border="2 #999999 rounded-lg" px-4 py-2>
-  <div text-xl mb-2 font-serif> 高精度 </div>
-  <div class="!children:children:leading-6">
-
-- inter-procedural
-- context-sensitive 
-- field-sensitive
-
-</div>
-</div>
-<div border="2 #999999 rounded-lg" px-4 py-2>
-  <div text-xl mb-2 font-serif> 可靠 </div>
-  <div> 仅作少数合理假设，<br>保证优化前后程序等价 </div>
-</div>
-<div border="2 #999999 rounded-lg" px-4 py-2>
-  <div text-xl mb-2 font-serif> 非迭代 </div>
-  <div> 优化是幂等的，只需执行一次 </div>
-</div>
-<div border="2 #999999 rounded-lg" px-4 py-2>
-  <div text-xl mb-2 font-serif> 可拓展 </div>
-  <div> 允许解耦地自定义外部函数的行为，以提供专门的优化 </div>
-</div>
-</div>
-
-<!--
-例子：揭示其中的一点
--->
 
 ---
 
 # 整体架构 {.text-center.!text-3xl.mt--2}
 
 <DesignOverview scale-115 origin-left-top ml-10 />
-
----
-class: Execution
----
-
-# 分析阶段 - 一个例子
-
-
-<div grid grid-cols-2 gap-4>
-
-```js {1|2|3|6|3|7|8|3}
-let x = 0, y = 0;
-setInterval(() => {
-  console.log(x, y);
-}, 100);
-// ...
-x++;
-x++;
-y++;
-```
-
-<div mr--10>
-
-<v-clicks at="1">
-
-- `setInterval` 在未知时刻调用回调
-- 先分析一次，发现依赖是 <Deps>x,y</Deps>
-- `x` 改变了，它是回调函数的依赖
-- 重新分析回调函数。新的依赖是 <Deps>y</Deps>
-- `x` 又改变了，但它不再是回调函数的依赖
-- `y` 改变了，它是回调函数的依赖
-- 重新分析回调函数。新的依赖是 <Deps></Deps>
-
-</v-clicks>
-
-</div>
-</div>
-
-<!--
-例子放在前面
--->
-
----
-
-## Analyzer{.sect} 乱序
-
-<div h-2 />
-
-- **自我触发**：对自身先前的写入会触发重新分析
-- **回调触发**：后续对其依赖的写入会触发重新分析
-
-| **情况** | **自我触发** | **回调触发** |
-| ---- | ---- | ---- |
-| 未知次数的循环 | Yes | No |
-| 未知深度的递归 | Yes | Yes |
-| 生成器 / 异步函数 | No | Yes |
-| 失去追踪 | Yes | Yes |
 
 ---
 
@@ -668,7 +619,7 @@ y++;
 
 ---
 
-<div relative flex gap-12 mt--2>
+<div relative flex gap-12 mt--5>
 <div>
 <div text-center>
 <codicon-key />
@@ -753,6 +704,70 @@ Metadata
 
 </div>
 
+<div v-drag="[501,331,287,76]">
+
+# Object Value {.!text-10}
+
+</div>
+
+---
+class: Execution
+---
+
+# 分析阶段 - 一个例子
+
+
+<div grid grid-cols-2 gap-4>
+
+```js {1|2|3|6|3|7|8|3}
+let x = 0, y = 0;
+setInterval(() => {
+  console.log(x, y);
+}, 100);
+// ...
+x++;
+x++;
+y++;
+```
+
+<div mr--10>
+
+<v-clicks at="1">
+
+- `setInterval` 在未知时刻调用回调
+- 先分析一次，发现依赖是 <Deps>x,y</Deps>
+- `x` 改变了，它是回调函数的依赖
+- 重新分析回调函数。新的依赖是 <Deps>y</Deps>
+- `x` 又改变了，但它不再是回调函数的依赖
+- `y` 改变了，它是回调函数的依赖
+- 重新分析回调函数。新的依赖是 <Deps></Deps>
+
+</v-clicks>
+
+</div>
+</div>
+
+<!--
+例子放在前面
+-->
+
+---
+
+<div mt--2>
+
+# 无法精确追踪时
+
+</div>
+
+- **自我触发**：对自身先前的写入会触发重新分析
+- **回调触发**：后续对其依赖的写入会触发重新分析
+
+| **情况** | **自我触发** | **回调触发** |
+| ---- | ---- | ---- |
+| 未知次数的循环 | 是 | 否 |
+| 未知深度的递归 | 是 | 是 |
+| 生成器 / 异步函数 | 否 | 是 |
+| 完全失去追踪 | 是 | 是 |
 
 ---
 hide: true
@@ -772,7 +787,7 @@ A -->|No| B("Union[All]")
 
 ---
 
-# Optimizations
+# 优化手段
 
 <div />
 
@@ -1213,7 +1228,7 @@ log(obj.[[a{1}]], obj[key]);
 
 据[官方博客](https://code.visualstudio.com/blogs/2023/07/20/mangling-vscode)，此项优化节约了 [14%]{.font-bold.font-mono} 的体积。
 
-<img src="./assets/ts-rename.png" v-drag="[417,242,348,NaN]" border="2 gray-200 rounded-lg" />
+<img src="./assets/ts-rename.png" v-drag="[405,216,348,NaN]" border="2 gray-200 rounded-lg" />
 
 ---
 
@@ -1358,13 +1373,15 @@ obj["foo"]++;
 
 ---
 
-# Evaluation
+# 优化效果
 
-<div flex items-end gap-1 text-sm op-70 v-drag="[248,54,300,21]">
-<carbon-logo-github /> <a href="https://github.com/mischnic/tree-shaking-example">mischnic/tree-shaking-example</a>
+<div flex items-end gap-1 text-sm op-70 v-drag="[212,57,300,21]">
+测试集：<carbon-logo-github /> <a href="https://github.com/mischnic/tree-shaking-example">mischnic/tree-shaking-example</a>
 </div>
 
-| Name | Saved | Time | Input Size\* | Output Size\* |
+<div h-2 />
+
+| 名称 | 额外节约 | 优化耗时 | 输入体积\* | 输出体积\* |
 | ---- | ---- | ---- | ---- | ---- |
 | react-icons | 58.12% | 51ms | 9099B | 3811B |
 | lodash-es | 44.98% | 34ms | 7108B | 3911B |
@@ -1377,10 +1394,10 @@ obj["foo"]++;
 | lodash | &nbsp;1.11% | 7791ms | 25882B | 25595B |
 | ramda | &nbsp;0.87% | 1743ms | 1952B | 1935B |
 
-<div mt-6 italic op-80 text-sm>
+<div mt-4 italic op-80 text-sm>
 
-\* Input files are bundled by [Rollup]{.font-mono} with its tree-shaking ON. <br>
-\* Minified by [oxc-minifier]{.font-mono} and Gzipped with compression level 6.
+\* 输入文件为 [Rollup]{.font-mono} 开启优化时的产物<br>
+\* 输出均为 [oxc-minifier]{.font-mono} 和 Gzipped 处理后的结果
 
 </div>
 
@@ -1388,7 +1405,7 @@ obj["foo"]++;
 table {
   --uno: text-sm mt--2;
 }
-:deep(td) {
+:deep(td), :deep(th) {
   padding: 0 0.5rem !important;  
 }
 :deep(td:not(:first-child)) {
@@ -1404,11 +1421,11 @@ table {
 
 ---
 
-# Evaluation
+# 优化效果
 
-Some real-world applications:
+一些现实案例：
 
-| Name  | Description | Saved |
+| 名称  | 特点 | 额外节约 |
 | - | - | - |
 | NoVNC | No external library used | 20% |
 | Guitar Studio | React + geist-ui | 20% |
@@ -1420,7 +1437,7 @@ Some real-world applications:
 table {
   --uno: text-sm mt--2;
 }
-:deep(td) {
+:deep(td), :deep(th) {
   padding: 0 0.5rem !important;  
 }
 :deep(td:not(:first-child)) {
