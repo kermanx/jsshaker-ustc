@@ -5,7 +5,7 @@
         PropertyValue
       </div>
       <div flex-grow />
-      <div border="2 #8856E9 rounded-md op-60" px-1 flex items-center text-2.5 h-4 v-if="kind != 2">
+      <div border="2 #8856E9 rounded-md op-60" px-1 flex items-center text-2.3 h-4 v-if="kind != 2">
         {{ kind == 3 ? 'Global ' : 'Existence ' }}Dependencies
       </div>
     </div>

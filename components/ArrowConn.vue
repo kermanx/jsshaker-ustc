@@ -1,27 +1,25 @@
 <template>
-  <Teleport to="body">
-    <svg :style="svgStyle" v-show="isActive || nav.isPrintMode.value">
-      <defs>
-        <marker :id="markerId" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto-start-reverse">
-          <polygon points="0 0, 10 3.5, 0 7" :fill="color" />
-        </marker>
-      </defs>
+  <svg :style="svgStyle" v-show="isActive || nav.isPrintMode.value" ref="svgRef">
+    <defs>
+      <marker :id="markerId" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto-start-reverse">
+        <polygon points="0 0, 10 3.5, 0 7" :fill="color" />
+      </marker>
+    </defs>
 
-      <line v-if="arrowData.isValid" :x1="arrowData.x1" :y1="arrowData.y1" :x2="arrowData.x2" :y2="arrowData.y2"
-        :stroke="color" :stroke-width="strokeWidth" :marker-end="noArrow ? undefined : `url(#${markerId})`" />
-    </svg>
-  </Teleport>
+    <line v-if="arrowData.isValid" :x1="arrowData.x1" :y1="arrowData.y1" :x2="arrowData.x2" :y2="arrowData.y2"
+      :stroke="color" :stroke-width="strokeWidth" :marker-end="noArrow ? undefined : `url(#${markerId})`" />
+  </svg>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, computed, watch } from 'vue';
-import { debounce, transform } from 'lodash-es'; // Use lodash for debouncing
+import { debounce } from 'lodash-es'; // Use lodash for debouncing
 import { useIsSlideActive, useNav, useSlideContext } from '@slidev/client'
 
 const isActive = useIsSlideActive()
 const context = useSlideContext()
 const nav = useNav()
-
+// const slideElement = inject(injectionSlideElement);
 
 // --- Props ---
 const props = defineProps({
@@ -72,15 +70,14 @@ const markerId = computed(() => `arrowhead-${props.arrowId}`);
 // Style for the SVG container
 const svgStyle = computed(() => ({
   position: 'fixed',
-  top: 0,
   left: 0,
-  width: '100%',
-  height: '100%', // Make sure parent has relative positioning and size
+  top: 0,
+  width: '100px',
   pointerEvents: 'none', // Allow clicks to pass through
   overflow: 'visible', // Ensure markers outside the line bounds are visible
   zIndex: 10, // Adjust as needed
-  transform: `scale(var(--slidev-slide-scale, 1))`,
-  transformOrigin: 'top left', // Ensure scaling is from the top-left corner
+  // transform: `scale(var(--slidev-slide-scale, 1))`,
+  // transformOrigin: 'top left', // Ensure scaling is from the top-left corner
 }));
 
 
@@ -137,12 +134,21 @@ const updateArrowPosition = () => {
     const y2 = rightRect.top + rightRect.height / 2;
 
     // Update reactive state
-    console.log(context.$scale.value)
-    arrowData.x1 = (1 / context.$scale.value) * (x1 - 1);
-    arrowData.y1 = (1 / context.$scale.value) * y1;
-    arrowData.x2 = (1 / context.$scale.value) * (x2 - (props.noArrow ? 0 : 6));
-    arrowData.y2 = (1 / context.$scale.value) * y2;
+    arrowData.x1 = (x1 - 1);
+    arrowData.y1 = y1;
+    arrowData.x2 = (x2 - (props.noArrow ? 0 : 6));
+    arrowData.y2 = y2;
     arrowData.isValid = true;
+
+    const svgRect = svgRef.value?.getBoundingClientRect();
+    const x0 = (svgRect.left ?? NaN)
+    const y0 = (svgRect.top ?? NaN)
+    const scale0 = (svgRect.width ?? NaN) / 100;
+    arrowData.x1 = ( (arrowData.x1 - x0)  / scale0 ) || 0;
+    arrowData.y1 = ( (arrowData.y1 - y0)  / scale0 ) || 0;
+    arrowData.x2 = ( (arrowData.x2 - x0)  / scale0 ) || 0;
+    arrowData.y2 = ( (arrowData.y2 - y0)  / scale0 ) || 0;
+    
 
   } else {
     // If elements are not found, invalidate the arrow
@@ -153,6 +159,11 @@ const updateArrowPosition = () => {
 
 // Debounced version for frequent updates
 const debouncedUpdate = debounce(updateArrowPosition, props.updateDebounceMs);
+
+watch(() => context.$scale.value, () => {
+  // Update arrow position when scale changes
+  debouncedUpdate();
+});
 
 // --- Lifecycle Hooks ---
 let observer = null;

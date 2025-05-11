@@ -5,7 +5,7 @@ title: JsShaker
 info: ""
 mdc: true
 colorSchema: light
-canvasWidth: 800
+canvasWidth: 784
 lineNumbers: true
 fonts:
   # mono: 'DM Mono'
@@ -15,7 +15,7 @@ fonts:
   hand: 'Caveat'
 ---
 
-# JsShaker
+# JsShaker {.font-serif}
 
 一个 JavaScript 代码体积优化器 {.text-2xl}
 
@@ -1264,7 +1264,7 @@ const c = a === b;
 
 </v-clicks>
 
-<div text-red v-drag="[473,340,143,NaN]" font-bold bg-red-100 px-4 py-2 leading-8 v-click="3">
+<div text-red v-drag="[459,335,143,NaN]" font-bold bg-red-100 px-4 py-2 leading-8 v-click="3">
 Not <Deps><code>a</code>,<code>c<sub>1</sub></code></Deps> <br>
 Not <Deps><code>a</code>,<code>c<sub>2</sub></code></Deps>
 </div>
