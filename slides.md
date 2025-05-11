@@ -184,22 +184,24 @@ Background and Motivation
 
 ---
 
-# 现有工具
+# 现有工具 {.mt--4.!text-3xl.!mb-4}
 
-| 名称 | 发起时间 | 空白字符<br>消除 | 常量<br>折叠 | 跨模块<br>优化 | 死分支<br>删除 | 函数<br>内联 | 函数<br>特化 | 无用属性<br>删除 | 属性名<br>缩减 |
+| 名称 | 发起时间 | 空白字符<br>消除 | 常量<br>折叠 | 模块间<br>优化 | 死分支<br>删除 | 函数<br>内联 | 函数<br>特化 | 无用属性<br>删除 | 属性名<br>缩减 |
 | - | - | - | - | - | - | - | - | - | - |
 | [Closure Compiler](https://github.com/google/closure-compiler) | 2009 | <i yes /> | <i yes /> | <i no /> | <i yes /> | <i yes /> | <i no /> | <i no /> | 不可靠 |
 | [Terser](https://terser.org/) | 2012 | <i yes /> | <i yes /> | <i no /> |  <i yes /> | <i no /> | <i no /> | <i no /> | <i no /> |
 | [UglifyJS](https://github.com/mishoo/UglifyJS/) | 2012 | <i yes /> | <i yes /> | <i no /> |  <i yes /> | <i no /> |  <i no /> |  <i no /> |  不可靠 |
 | [Rollup](https://rollupjs.org/) | 2015 | <i no /> | <i no /> | <i yes /> | <i yes /> | <i no /> | <i yes /> | 浅层 | <i no />  |
 | [swc](https://swc.rs/) | 2017 |  <i yes /> | <i yes /> | <i no /> | <i yes /> |  <i yes /> |  <i no /> | <i no />  |<i no />  |
-| [prepack](http://prepack.io/) (已放弃) | 2017 | <i no /> | <i yes /> | <i no />  | <i yes /> | <i yes />  | <i yes /> |  <i yes /> | <i no /> | 
+| [Prepack](http://prepack.io/) (已放弃) | 2017 | <i no /> | <i yes /> | <i no />  | <i yes /> | <i yes />  | <i yes /> |  <i yes /> | <i no /> | 
 | [esbuild](https://esbuild.github.io/) | 2020 |  <i yes /> | <i yes /> | <i no /> | <i yes /> |  <i no />  | <i no /> | <i no />  |<i no />  |
+| [oxc](https://oxc.rs/) | 2023 |  <i yes /> | <i yes /> | <i no /> | <i yes /> |  <i no />  | <i no /> | <i no />  |<i no />  |
+| [Rolldown](https://rolldown.rs/) | 2023 | <i no /> | <i no /> | <i yes /> | <i no /> | <i no /> | <i no /> | <i no /> | <i no />  |
 
-<div mt-4>
+<div mt-2 ml-2 text-4>
 
 - 各工具侧重点不同，通常组合使用（e.g. Rollup + Terser）
-- 除 prepack 外，均为基于规则集的迭代式优化，缺乏深度优化
+- 唯一具有深度优化功能的 Prepack 没有成功
 
 </div>
 
@@ -239,7 +241,11 @@ i[yes] {
 
 ---
 
-# 目标
+<div mt--3>
+
+# 目标 {.!text-8} 
+
+</div>
 
 <div grid grid-cols-2 gap-6 children:h-34>
 <div border="1.5 #555 rounded-lg" px-4 py-2>
@@ -262,7 +268,7 @@ i[yes] {
 </div>
 <div border="1.5 #555 rounded-lg" px-4 py-2>
   <div text-xl mb-2 font-serif> <carbon-new-tab /> 可拓展 </div>
-  <div> 允许解耦地自定义外部函数的行为，以提供专门的优化 </div>
+  <div> 解耦地定义函数行为，<br>可以扩充专门的优化 </div>
 </div>
 </div>
 
@@ -478,7 +484,7 @@ console.log(2);
 clicks: 2
 ---
 
-# 三种思路 {.text-center.!text-3xl.mt--4}
+# 三种思路 {.text-center.!text-8.mt--4}
 
 <div fixed inset-0 flex items-center justify-center pt-6 pl-6>
 <img w-160 src="./assets/ThreeMethods.svg" />
@@ -489,7 +495,7 @@ clicks: 2
 </div>
 
 <div v-click transition duration-400 :class="$clicks < 2 ? 'op-0' : ''" bg-gray-200 bg-op-60 backdrop-blur-5 v-drag="[113,290,575,116]" flex items-center justify-center text-3xl>
-工作量过大
+工作量过大，不现实
 </div>
 
 ---
@@ -534,7 +540,7 @@ hide: true
 transition: view-transition
 ---
 
-# 整体架构 {.text-center.my--2}
+# 整体架构 {.text-center.!text-8.my--2.mt--4}
 
 <DesignOverview scale-115 origin-left-top ml-10 />
 
@@ -770,9 +776,9 @@ console.log(x);
 
 ---
 
-<div mt--2>
+<div mt--4>
 
-# 无法精确追踪时
+# 无法精确追踪时 {.!text-4xl}
 
 </div>
 
@@ -1181,8 +1187,8 @@ A ---->|依赖| C(（计算过程）)
 
 </div>
 
-<div v-drag="[469,165,221,NaN]" px-2 py-1 border="2 dashed #999999 rounded-lg" transition-all duration-200 delay-600 :class="$clicks === 0 ? 'op-0' : ''">
-不直接褪优化计算过程！
+<div v-drag="[469,166,216,NaN]" px-2 py-1 border="2 dashed #999999 rounded-lg" transition-all duration-200 delay-600 :class="$clicks === 0 ? 'op-0' : ''">
+阻止直接褪优化计算过程
 </div>
 
 <img src="./assets/CurveArrow.svg" v-drag="[420,163,25,NaN,231]" transition-all duration-200 delay-600 :class="$clicks === 0 ? 'op-0' : 'op-60'" />
