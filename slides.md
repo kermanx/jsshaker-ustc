@@ -77,9 +77,9 @@ A --> E(节约带宽) ---> D
 A --> F(满足边缘函数体积要求)
 ```
 
-<div v-drag="[494,269,227,NaN]" px-4 bg-gray-200 rounded-lg>
+<div v-drag="[475,265,248,NaN]" px-4 bg-gray-200 rounded-lg>
 
-JavaScript 是**唯一**需要压缩自身体积的高级语言
+JavaScript 是**唯一**普遍需要压缩自身体积的高级语言
 
 </div>
 
@@ -475,6 +475,8 @@ console.log(2);
 -->
 
 ---
+clicks: 2
+---
 
 # 三种思路 {.text-center.!text-3xl.mt--4}
 
@@ -482,7 +484,16 @@ console.log(2);
 <img w-160 src="./assets/ThreeMethods.svg" />
 </div>
 
+<div v-click transition duration-400 :class="$clicks < 1 ? 'op-0' : ''" bg-gray-200 bg-op-60 backdrop-blur-5 v-drag="[113,174,575,116]" flex items-center justify-center text-3xl>
+已完善，但缺乏深入优化
+</div>
 
+<div v-click transition duration-400 :class="$clicks < 2 ? 'op-0' : ''" bg-gray-200 bg-op-60 backdrop-blur-5 v-drag="[113,290,575,116]" flex items-center justify-center text-3xl>
+工作量过大
+</div>
+
+---
+hide: true
 ---
 
 # 改进
@@ -1068,7 +1079,7 @@ for conditional node N:
 
 # 常量折叠
 
-若一个节点**优化后**只可能为一种字面量值，就可以将其折叠：
+若一个节点**优化后**只可能为**一种字面量值**，就可以将其折叠：
 
 <div flex>
 
@@ -1080,7 +1091,7 @@ const a = f(1), b = f(2);
 x = a;
 ```
 
-<div i-carbon-arrow-right w-20 text-4xl op-60 mt-4 />
+<div i-carbon-arrow-right w-20 text-4xl op-60 mt-6 />
 
 ```js {*}{lines:false,class:'w-64'}
 function f() {
@@ -1096,11 +1107,13 @@ x = a;
 
 <style scoped>
 :deep(.slidev-code) {
-  --slidev-code-font-size: 14px;
+  --slidev-code-font-size: 16px;
   --slidev-code-line-height: 1.4;
 }
 </style>
 
+---
+hide: true
 ---
 
 # 常量折叠 {.!text-3xl.mt--2}
@@ -1152,31 +1165,27 @@ clicks: 1
 
 ```mermaid {scale:1}
 graph LR;
-A((Folded)) --->|Value| B("Number(1)")
-A --->|Dep| C(FoldableDep<div style="height: 80px" />)
+A((折叠后的值)) --->|值| B("Number(1)")
+A --->|依赖| C(FoldableDep<div style="height: 80px" />)
 ```
 
 </div>
 
-<div absolute transition-all duration-600 :class="$clicks === 0 ? 'left-14 top-30' : 'left-70 top-58'" >
+<div absolute transition-all duration-600 :class="$clicks === 0 ? 'left-14 top-30' : 'left-77 top-58'" >
 
 ```mermaid {scale:1}
 graph LR;
-A((Original)) ---->|Value| B("Number(1)")
-A ---->|Dep| C(（计算过程）)
+A((原始值)) ---->|值| B("Number(1)")
+A ---->|依赖| C(（计算过程）)
 ```
 
 </div>
 
-<div v-drag="[415,93,350,NaN]" px-2 py-1 border="2 dashed #999999 rounded-lg" transition-all duration-200 delay-600 :class="$clicks === 0 ? 'op-0' : ''">
-
-1. 更新常量折叠状态
-2. 将原始 Entity 存入列表
-3. [(post-analysis)]{.text-xs.op-80.font-serif} 若无法折叠，消耗整个列表
-
+<div v-drag="[469,165,221,NaN]" px-2 py-1 border="2 dashed #999999 rounded-lg" transition-all duration-200 delay-600 :class="$clicks === 0 ? 'op-0' : ''">
+不直接褪优化计算过程！
 </div>
 
-<img src="./assets/CurveArrow.svg" v-drag="[378,175,20,NaN,226]" transition-all duration-200 delay-600 :class="$clicks === 0 ? 'op-0' : 'op-60'" />
+<img src="./assets/CurveArrow.svg" v-drag="[420,163,25,NaN,231]" transition-all duration-200 delay-600 :class="$clicks === 0 ? 'op-0' : 'op-60'" />
 
 ---
 
@@ -1191,7 +1200,7 @@ const [[variableName]] = { [[propertyName{4}]]: 42 };
 log([[variableName]].[[propertyName{4}]] * 2);
 ```
 
-<carbon-arrow-down text-3xl my-2 op-60 ml-2/>
+<carbon-arrow-down text-3xl my-2 op-60 ml-4 />
 
 ```js {*}{lines:false}
 let [[e]]={[[propertyName{4}]]:42};log([[e]].[[propertyName{4}]]*2)
@@ -1397,7 +1406,7 @@ obj["foo"]++;
 
 # 优化效果
 
-<div flex items-end gap-1 text-sm op-70 v-drag="[212,57,300,21]">
+<div flex items-end gap-1 text-sm v-drag="[212,57,300,21]">
 测试集：<carbon-logo-github /> <a href="https://github.com/mischnic/tree-shaking-example">mischnic/tree-shaking-example</a>
 </div>
 
@@ -1445,7 +1454,9 @@ table {
 
 # 优化效果
 
-一些现实案例：
+<div flex items-end gap-1 text-sm v-drag="[212,57,300,21]">
+一些现实案例
+</div>
 
 | 名称  | 特点 | 额外节约 |
 | - | - | - |
@@ -1454,6 +1465,21 @@ table {
 | Calendar | React + Ant-design | 15% |
 | Volar VSCode Extension | Super complex | &nbsp;8% |
 | ZVMS | Vue + Element-plus  | &nbsp;3% |
+
+
+
+# 推荐优化管线 {.!text-2xl.mt-8.text-center}
+
+<div flex items-center justify-center>
+
+```mermaid {scale:1.1}
+graph LR;
+A(Rollup) --> B(JsShaker):::W --> C(swc) --> D(Gzip)
+
+classDef W stroke:#5D8392,stroke-width:2px,color:#3D6372;
+```
+
+</div>
 
 <style scoped>
 table {
