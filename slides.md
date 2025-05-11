@@ -542,7 +542,7 @@ transition: view-transition
 
 # 整体架构 {.text-center.!text-8.my--2.mt--4}
 
-<DesignOverview scale-115 origin-left-top ml-10 />
+<DesignOverview scale-115 origin-left-top ml-8 />
 
 ---
 
@@ -843,7 +843,7 @@ transition: view-transition
 
 # 整体架构 {.text-center.my--2}
 
-<DesignOverview scale-115 origin-left-top ml-10 />
+<DesignOverview scale-115 origin-left-top ml-8 />
 
 ---
 hide: true

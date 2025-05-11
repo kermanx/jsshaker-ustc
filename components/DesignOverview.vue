@@ -15,7 +15,7 @@
       </div>
     </div>
   </div> -->
-  <div relative flex gap-16>
+  <div relative flex gap-16 v-bind="$attrs">
     <div h-64 flex flex-col w-80>
       <div font-serif mb-1>
         两个步骤
