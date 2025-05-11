@@ -17,7 +17,12 @@ fonts:
 
 # JsShaker
 
-语义层面的 JavaScript 代码体积优化器
+一个 JavaScript 代码体积优化器 {.text-2xl}
+
+<div pt-4 pb-6>
+报告人：熊桐睿 &emsp;<br>
+指导老师：张昱 丁伯尧
+</div>
 
 <!--
 名字
@@ -26,7 +31,7 @@ fonts:
 
 ---
 
-# Background
+# 背景
 
 ```mermaid
 graph LR;
@@ -46,21 +51,46 @@ A --> E(节约带宽) ---> D
 -->
 
 ---
+
+# <logos-javascript /> <span class="text-black">JavaScript</span>
+
+#### 近几十年来最广泛使用的编程语言 {.mt-2}
+
+<div mb--3>
+
+根据 [JetBrains 2024 年的报告](https://www.jetbrains.com/lp/devecosystem-2024/)，
+
+</div>
+
+- **61%** 的开发者使用 JavaScript
+- **58%** 的应用在浏览器中运行
+
+#### 运行高效、开发便捷 {.mt-2}
+
+- JIT 支持
+- 现代语言特性、工程化
+
+#### 不可代替的编程语言 {.mt-2}
+
+- 浏览器唯一原生支持的语言
+
+<style>
+.slidev-page li>p {
+  --uno: my-0;
+}
+</style>
+
+---
 dragPos:
-  semantic: 362,129,385,80
+  semantic: 361,122,385,80
   grammar: 362,230,421,80
-  binary: 362,300,388,56
-  note: 362,384,406,80
+  binary: 362,296,388,75
   title: 362,48,388,56
 ---
 
 <div v-drag="'title'">
 
-# The Levels
-
-<div mt--5 op-60>
-of JavaScript code size optimization
-</div>
+# 优化的三个步骤
 
 </div>
 
@@ -80,7 +110,7 @@ greet();
 ```
 
 ```js {*}{lines:false,class:'children:children:children:(text-wrap break-all)'}
-function greet(){console.log("Hello, World")}greet();
+function a(){console.log("Hello, World")}a();
 ```
 
 ```txt {*}{lines:false}
@@ -89,25 +119,21 @@ function greet(){console.log("Hello, World")}greet();
 
 <div v-drag="'semantic'">
 
-**Semantic Level** <br>
-Tree-shaking，静态分析程序，优化不必要的代码
+**步骤一：语义层次** （复杂度高）<br>
+进行程序分析，优化代码体积
 
 </div>
 <div v-drag="'grammar'">
 
-**Syntax Level** <br>
-Minifier[*]{.text-red}，上下文无关，删除空格、重命名变量等
+**步骤二：语法层次** （已经完善）<br>
+按照语法结构，删除无用字符
+
 
 </div>
 <div v-drag="'binary'">
 
-**Binary Level** <br>
-Gzip，编程语言无关，减小传输体积
-
-</div>
-<div v-drag="'note'" text-sm>
-
-[*]{.text-red} [许多 Minifier 也会做简单的 Semantic Level 优化]{.op-50}
+**步骤三：二进制层次** <br>
+Gzip 压缩，减小传输体积
 
 </div>
 
@@ -116,6 +142,20 @@ Gzip，编程语言无关，减小传输体积
 <img src="./assets/CurveArrow.svg" v-drag="[318,244,20,NaN]" op-60 />
 
 <img src="./assets/CurveArrow.svg" v-drag="[318,312,20,NaN]" op-60 />
+
+
+<div v-drag="[229,99,75,20]" border="rounded-md red 2" />
+
+
+<div v-drag="[65,81,75,20]" border="rounded-md red 2" />
+
+
+<div v-drag="[126,186,40,20]" border="rounded-md red 2" />
+
+
+<div v-drag="[59,204,20,20]" border="rounded-md red 2" />
+
+<div v-drag="[254,119,55,NaN]" text-xs text-red>函数特化</div>
 
 
 <style>
@@ -136,12 +176,79 @@ Minifier: 按照语法结构
 1. 分析的复杂度：Syntax Level < Semantic Level
 2. 实际做优化：JavaScript code size != 一般的程序分析
 
-Background and Motvation
+Background and Motivation
 -->
 
 ---
 
-# Why Hard?
+# 为何困难? {.!text-8} 
+
+```js {*}{lines:false}
+function makeCounter(options) {
+  let count = options?.init || +options || 0;
+  return () => {
+    return count++;
+  }
+}
+
+const counter1 = makeCounter({
+  __proto__: {
+    ["in" + "it"]: 1,
+  }
+});
+const counter2 = makeCounter("2");
+```
+
+<div text-2 op-50 w-110>
+[1]: Lucas, W., Nunes, R., Bonifácio, R. et al. Understanding the adoption of modern Javascript features: An empirical study on open-source systems. Empir Software Eng 30, 107 (2025). https://doi.org/10.1007/s10664-025-10663-9
+</div>
+
+
+<div v-drag="[77,147,159,64]" border="rounded-md red 2" />
+
+<div v-drag="[320,126,77,20]" border="rounded-md red 2" />
+
+<div v-drag="[78,273,91,20]" border="rounded-md red 2" />
+
+<div v-drag="[95,294,114,20]" border="rounded-md red 2" />
+
+<div v-drag="[298,356,46,20]" border="rounded-md red 2" />
+
+<div v-drag="[111,209,609,NaN]" text-red>
+函数是一等公民
+<span text-black text-sm pl-1>(<span font-mono>67.08%</span> 的项目使用该特性<sup op-50>1</sup>)</span>
+</div>
+
+<div v-drag="[122,311,484,NaN]" text-red>
+动态属性名
+<span text-black text-sm pl-1>(<span font-mono>24.05%</span> 的项目使用该特性<sup op-50>1</sup>)</span>
+</div>
+
+<div v-drag="[22,268,101,NaN]" text-red>原型链</div>
+
+<div v-drag="[346,143,101,NaN]" text-red>弱类型</div>
+
+<div v-drag="[309,331,101,NaN]" text-red>多态</div>
+
+<div v-drag="[514,316,245,NaN]" bg-gray-200 px-4 py-2 rounded-lg>
+
+- 做最坏的假设
+- 但又要达到优化效果
+
+</div>
+
+<style scoped>
+:deep(.slidev-code) {
+  --slidev-code-font-size: 14px;
+  --slidev-code-line-height: 1.4;
+}
+</style>
+
+---
+hide: true
+---
+
+# 为何困难?
 
 <!-- JavaScript 作为弱类型的解释型语言，具有高度的动态特性。它使用基于原型链的继承机制，并允许使用动态计算的属性名添加、删除和修改对象的属性和方法。这些特性使得 JavaScript 代码的静态分析变得非常困难。 -->
 
@@ -203,62 +310,76 @@ setTimeout(sigmoid, 1000, 1);
 <!--
 英才班：具代表性的
 
+ ComputedPropertyAssignment: 33.54
+ArrowFunctionDeclarations:  87.97
+
 实证分析的文章 -> 数据：特征的使用的情况
 -->
 
 ---
 
-# Why Hard?
+# 现有工具
 
-<div h-2 />
+| 名称 | 发起时间 | 空白字符<br>消除 | 常量<br>折叠 | 跨模块<br>优化 | 死分支<br>删除 | 函数<br>内联 | 函数<br>特化 | 无用属性<br>删除 | 属性名<br>缩减 |
+| - | - | - | - | - | - | - | - | - | - |
+| [Closure Compiler](https://github.com/google/closure-compiler) | 2009 | <i yes /> | <i yes /> | <i no /> | <i yes /> | <i yes /> | <i no /> | <i no /> | 不可靠 |
+| [Terser](https://terser.org/) | 2012 | <i yes /> | <i yes /> | <i no /> |  <i yes /> | <i no /> | <i no /> | <i no /> | <i no /> |
+| [UglifyJS](https://github.com/mishoo/UglifyJS/) | 2012 | <i yes /> | <i yes /> | <i no /> |  <i yes /> | <i no /> |  <i no /> |  <i no /> |  不可靠 |
+| [Rollup](https://rollupjs.org/) | 2015 | <i no /> | <i no /> | <i yes /> | <i yes /> | <i no /> | <i yes /> | 浅层 | <i no />  |
+| [swc](https://swc.rs/) | 2017 |  <i yes /> | <i yes /> | <i no /> | <i yes /> |  <i yes /> |  <i no /> | <i no />  |<i no />  |
+| [prepack](http://prepack.io/) (已放弃) | 2017 | <i no /> | <i yes /> | <i no />  | <i yes /> | <i yes />  | <i yes /> |  <i yes /> | <i no /> | 
+| [esbuild](https://esbuild.github.io/) | 2020 |  <i yes /> | <i yes /> | <i no /> | <i yes /> |  <i no />  | <i no /> | <i no />  |<i no />  |
 
-一个简单的字符串拼接函数:
-```js {*}{lines:false,class:'w-92'}
-function concat(arr) {
-  let res = "";
-  for (let i = 0; i < arr.length; i++) {
-    res += arr[i];
-  }
-  return res;
-}
-```
+<div mt-4>
 
-<div text-sm op-60 mt-18>
-
-Source: [_Land ahoy: leaving the Sea of Nodes_](https://v8.dev/blog/leaving-the-sea-of-nodes) by the V8 team
+- 各工具侧重点不同，通常组合使用（e.g. Rollup + Terser）
+- 除 prepack 外，均为基于规则集的迭代式优化，缺乏深度优化
 
 </div>
 
-<img src="https://v8.dev/_img/leaving-the-sea-of-nodes/Sea-of-Nodes-array-concat.png" absolute right-0 top-0 h-full z--1 />
+
+<div v-drag="[602,39,140,NaN]" text-xs hidden>
+
+<carbon-checkmark />: 支持<br>
+<carbon-close-large />: 不支持<br>
+<carbon-circle-outline />: 支持但不可靠<br>
+
+
+</div>
 
 <style scoped>
-:deep(.slidev-code) {
-  --slidev-code-font-size: 14px;
+table {
+  --uno: text-xs mt--2;
 }
+:deep(td) {
+  padding: 4px 0.5rem !important;  
+}
+:deep(th) {
+  padding: 4px 0.5rem !important;  
+}
+
+i[no] {
+  --uno: i-carbon-close-large block w-4 h-4 text-red-600;
+}
+
+i[yes] {
+  --uno: i-carbon-checkmark block w-4 h-4 text-green-800;
+}
+
+/* :deep(td:first-child) {
+  --uno: font-bold;
+} */
 </style>
 
-<!--
-英才班/论文：不需要这一张
--->
-
 ---
-
-Previous Work{.sect}
-
-<div text-2xl mt--1 pb-2>
-
-[Rollup](https://rollupjs.org/), [Terser](https://terser.org/), [UglifyJS](https://github.com/mishoo/UglifyJS/), [Google Closure Compiler](https://github.com/google/closure-compiler)
-
-</div>
-
-<div text-xl mb-2>
-不足：
-</div>
+hide: true
+---
 
 - 基于规则，多 pass
 - 缺少对象属性的重命名
 - 高级优化要求所有的函数和对象都已知
-- 可拓展性弱
+- 可拓展性不强
+
 
 <!--
 时间
@@ -268,6 +389,9 @@ benchmark
 描述
 -->
 
+
+---
+hide: true
 ---
 
 Previous Work{.sect}
@@ -316,7 +440,7 @@ console.log(2);
 
 ### 抽象
 
-不拘泥于标准，按照直观的 JS 语义分析代码
+按照直观的 JS 语义分析代码
 
 <carbon-arrow-right /> 提高了分析的“性价比”
 
@@ -332,6 +456,17 @@ console.log(2);
 
 ---
 
+# 三种思路 {.text-center.!text-3xl.mt--2}
+
+<div fixed inset-0 flex items-center justify-center pt-8 pl-6>
+<img w-160 src="./assets/ThreeMethods.svg" />
+</div>
+
+
+---
+hide: true
+---
+
 # Tree-shaking
 
 <div />
@@ -341,20 +476,15 @@ console.log(2);
 | Tree-shaking | 先假定所有代码无用，通过分析来褪优化其中有用的部分 <div op-80> "Include live code" </div> |
 | - | - |
 | DCE | 反复应用一组规则去删除无用代码 <div op-80> "Exclude dead code" </div> |
-| Prepack etc. | 记录副作用再重新生成等效代码 <div op-80> "Rebuild the program" </div> |
+| Prepack etc. | 记录副作用再重新生成等效代码 <div op-80> "Interpret and rebuild" </div> |
 
 ---
 
-# The Goals
-
-<!-- - **High precision**: inter-procedural, context-sensitive and field-sensitive.
-- **Soundiness**: 在合理的假设下，优化结果是正确的。
-- **Single pass**: 优化是幂等的，只需执行一次。确保使用到全局的所有信息，并保证了优化效率。
-- **Extendability**: 允许解耦地自定义外部函数的行为，提供专门的优化。 -->
+# 目标
 
 <div grid grid-cols-2 gap-6 children:h-34>
 <div border="2 #999999 rounded-lg" px-4 py-2>
-  <div text-xl mb-2 font-serif> High precision </div>
+  <div text-xl mb-2 font-serif> 高精度 </div>
   <div class="!children:children:leading-6">
 
 - inter-procedural
@@ -364,15 +494,15 @@ console.log(2);
 </div>
 </div>
 <div border="2 #999999 rounded-lg" px-4 py-2>
-  <div text-xl mb-2 font-serif> Soundiness </div>
+  <div text-xl mb-2 font-serif> 可靠 </div>
   <div> 仅作少数合理假设，<br>保证优化前后程序等价 </div>
 </div>
 <div border="2 #999999 rounded-lg" px-4 py-2>
-  <div text-xl mb-2 font-serif> Single Pass </div>
+  <div text-xl mb-2 font-serif> 非迭代 </div>
   <div> 优化是幂等的，只需执行一次 </div>
 </div>
 <div border="2 #999999 rounded-lg" px-4 py-2>
-  <div text-xl mb-2 font-serif> Extendability </div>
+  <div text-xl mb-2 font-serif> 可拓展 </div>
   <div> 允许解耦地自定义外部函数的行为，以提供专门的优化 </div>
 </div>
 </div>
@@ -383,96 +513,15 @@ console.log(2);
 
 ---
 
-# Design Overview
+# 整体架构 {.text-center.!text-3xl.mt--2}
 
-<DesignOverview />
-
----
-class: Execution
----
-
-## Analyzer{.sect} 顺序
-
-<div grid grid-cols-2 gap-4>
-
-```js {5|1|2|3}
-function [[add]]([[x]], [[y]]) {
-  const [[z]] = x + y;
-  console.log(z);
-}
-add([[1]], [[2]]);
-```
-
-<div>
-
-### Execution Dependencies
-
-<v-clicks at="1">
-
-- The <Dep>add</Dep> function call
-
-</v-clicks>
-
-### Expressions <div float-right text-sm mt-3 op-60 font-serif font-bold> Dependencies </div>
-
-<v-clicks at="0">
-
-- `add`: Function(L1-L4) <Deps float-right>1</Deps>
-- `x`: Number(1) <Deps float-right>2,5</Deps> <br>
-  `y`: Variable("y") <Deps float-right>3,6</Deps>
-- `z`: Number(3) <Deps float-right>4,x,y</Deps>
-- `console.log`: Unknown <Deps float-right></Deps>
-
-</v-clicks>
-
-</div>
-</div>
+<DesignOverview scale-115 origin-left-top ml-10 />
 
 ---
 class: Execution
 ---
 
-## Analyzer{.sect} 分支
-
-<div grid grid-cols-2 gap-4>
-
-```js {1|2|3|4}
-let [[x]] = 1;
-if (unknown)
-  x++;
-console.log(x);
-```
-
-<div>
-
-### Execution Dependencies
-
-<div v-click="[2,3]">
-
-- `unknown` is truthy [*covered later]{.op-60.text-xs.italic}
-
-</div>
-
-### Expressions <div float-right text-sm mt-3 op-60 font-serif font-bold> Dependencies </div>
-
-<v-clicks at="0">
-
-- `x`: Number(1) <Deps float-right>1</Deps>
-- `a`: Unknown <Deps float-right></Deps>
-- `x'`: Number(2) <Deps float-right>x</Deps>
-- `x''`: Union\[`x`, `x'`\] <Deps float-right>a</Deps> <br>
-  `console.log`: Unknown <Deps float-right></Deps>
-
-</v-clicks>
-
-</div>
-</div>
-
----
-class: Execution
----
-
-## Analyzer{.sect} 乱序
+# 分析阶段 - 一个例子
 
 
 <div grid grid-cols-2 gap-4>
@@ -515,25 +564,25 @@ y++;
 
 <div h-2 />
 
-- **Drain**：每当自己写入了自己先前的依赖，就重新分析
-- **Callback**：自己执行完后，对它的依赖的写入也需要触发重新分析
+- **自我触发**：对自身先前的写入会触发重新分析
+- **回调触发**：后续对其依赖的写入会触发重新分析
 
-| **Kind** | **Drain** | **Callback** |
+| **情况** | **自我触发** | **回调触发** |
 | ---- | ---- | ---- |
-| Loop | Yes | No |
-| Recursion | Yes | Yes |
-| Generator / async | No | Yes |
-| Untrackable | Yes | Yes |
+| 未知次数的循环 | Yes | No |
+| 未知深度的递归 | Yes | Yes |
+| 生成器 / 异步函数 | No | Yes |
+| 失去追踪 | Yes | Yes |
 
 ---
 
-# The Entity Model
+# 如何描述值？
 
 <img src="./assets/Entity.svg" v-drag="[58,65,655,NaN]" />
 
 ---
 
-# The "Value"s
+# 有哪些 "Value"？
 
 <div grid grid-cols-5 gap-4>
 
@@ -611,22 +660,15 @@ y++;
 
 </div>
 
+<div text-2xl pt-4 text-center>
 
 复杂度与精确性的权衡
 
+</div>
+
 ---
 
-# The Object Value
-
-<style>
-h1 {
-  font-size: 1.5rem;
-  margin: 0 !important;
-  margin-top: -28px !important;
-}
-</style>
-
-<div relative flex gap-12>
+<div relative flex gap-12 mt--2>
 <div>
 <div text-center>
 <codicon-key />
