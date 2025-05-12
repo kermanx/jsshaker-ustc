@@ -334,7 +334,7 @@ const counter2 = makeCounter("2");
 <div v-drag="[498,307,245,NaN]" bg-gray-200 px-4 py-2 rounded-lg>
 
 - 做最坏的假设
-- 但又要有优化效果
+- 同时要求优化效果
 
 </div>
 
@@ -995,41 +995,42 @@ else
 ```
 
 <div v-drag="[300,80,321,26]" font-serif font-bold>
-添加依赖：
+对每个分支分别添加执行依赖：
 </div>
 
 
 <div v-drag="[300,110,399,NaN]" text-sm leading-4 font-mono>
 BranchDep (<br>
-&emsp;consequent branch is impure,<br>
-&emsp;both branches are possible<br>)
+&emsp;分支 1 有副作用,<br>
+&emsp;两个分支都有可能进入<br>)
 </div>
 
 <div v-drag="[300,188,436,NaN]" text-sm leading-4 font-mono>
 BranchDep (<br>
-&emsp;alternate branch is impure,<br>
-&emsp;both branches are possible<br>)
+&emsp;分支 2 有副作用,<br>
+&emsp;两个分支都有可能进入<br>)
 </div>
 
 
 <div v-drag="[300,272,436,NaN]" text-sm leading-4 font-mono>
 BranchDep (<br>
-&emsp;consequent branch is impure,<br>
-&emsp;only the consequent branch is possible<br>)
+&emsp;分支 3 有副作用,<br>
+&emsp;只有可能进入真分支<br>)
 </div>
 
 <div v-drag="[300,373,436,NaN]" text-sm leading-4 font-mono italic>
-*never analyzed
+*不会被分析
 </div>
 
 ---
 
 # 死代码消除 {.!text-3xl.mt--2}
 
-<div flex gap-4 mt--2>
+<div flex gap-16 mt-12>
 <div>
 
-<div text-sm font-bold>
+<div text-sm font-bold text-red relative w-fit>
+<div data-arrow-to="dce-post" absolute w-0 class="left-70%" />
 Post Analysis:
 </div>
 
@@ -1055,7 +1056,8 @@ while changed:
 </div>
 <div>
 
-<div text-sm font-bold>
+<div text-sm font-bold text-blue relative w-fit>
+<div data-arrow-to="dce-transform" absolute w-0 class="top-30%" left--1 />
 Transformation:
 </div>
 
@@ -1080,6 +1082,25 @@ for conditional node N:
 
 </div>
 </div>
+
+<img src="./assets/DesignOverview.png" v-drag="[219,18,226,NaN]" border="1 black op-60" shadow-2xl/>
+
+<div v-drag="[312,49,40,41]" border="2 red rounded-md">
+<div data-arrow-from="dce-post" w-0 h-full />
+<ArrowConn arrow-id="dce-post" color="rgb(248 113 113 / 60)"/>
+</div>
+
+<div v-drag="[226,102,131,40]" border="2 blue rounded-md">
+<div data-arrow-from="dce-transform" absolute h-full right--2px />
+<ArrowConn arrow-id="dce-transform" color="rgb(96 165 250 / 60)"/>
+</div>
+
+<style scoped>
+:deep(.slidev-code) {
+  --slidev-code-font-size: 10px;
+  --slidev-code-line-height: 1.4;
+}
+</style>
 
 ---
 
