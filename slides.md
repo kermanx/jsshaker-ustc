@@ -52,7 +52,7 @@ fonts:
 
 - 浏览器唯一原生支持的语言
 
-<div fixed right-4 w-100 top-22>
+<div fixed right-6 w-100 top-22>
 <img src="./assets/jetbrains.png" w-full />
 <div text-center text-sm op-60>
 编程语言的使用情况 <span text-xs>(Jetbrains, 2024)</span>
@@ -85,10 +85,11 @@ JavaScript 是**唯一**普遍需要压缩自身体积的高级语言
 
 ---
 dragPos:
-  semantic: 356,128,385,80
-  grammar: 355,222,421,80
-  binary: 355,300,388,75
-  title: 355,51,388,56
+  semantic: 380,128,385,80
+  grammar: 380,222,421,80
+  binary: 380,300,388,75
+  title: 380,51,388,56
+class: pl-20
 ---
 
 <div v-drag="'title'">
@@ -140,30 +141,30 @@ Gzip 压缩，减小传输体积
 
 </div>
 
-<img src="./assets/CurveArrow.svg" v-drag="[318,142,20,NaN]" op-60 />
+<img src="./assets/CurveArrow.svg" v-drag="[340,142,20,NaN]" op-60 />
 
-<img src="./assets/CurveArrow.svg" v-drag="[317,240,20,NaN]" op-60 />
+<img src="./assets/CurveArrow.svg" v-drag="[340,240,20,NaN]" op-60 />
 
-<img src="./assets/CurveArrow.svg" v-drag="[318,312,20,NaN]" op-60 />
-
-
-<div v-drag="[229,99,75,20]" border="rounded-md red 2" />
+<img src="./assets/CurveArrow.svg" v-drag="[340,312,20,NaN]" op-60 />
 
 
-<div v-drag="[65,81,75,20]" border="rounded-md red 2" />
+<div v-drag="[253,99,68,20]" border="rounded-md red 2" />
 
 
-<div v-drag="[126,186,40,20]" border="rounded-md blue 2" />
+<div v-drag="[85,81,75,20]" border="rounded-md red 2" />
 
 
-<div v-drag="[59,204,20,20]" border="rounded-md blue 2" />
+<div v-drag="[151,186,40,20]" border="rounded-md blue 2" />
 
-<div v-drag="[254,119,55,NaN]" text-xs text-red>函数特化</div>
+
+<div v-drag="[81,204,20,20]" border="rounded-md blue 2" />
+
+<div v-drag="[264,119,55,NaN]" text-xs text-red>函数特化</div>
 
 
 <style>
 .slidev-code-wrapper {
-  width: 38%;
+  width: 40%;
 }
 .shiki {
   --uno: mt-4;
@@ -751,7 +752,7 @@ console.log(x);
 
 <div>
 
-### 执行依赖
+### 控制流依赖
 
 <div v-click="[2,3]">
 
@@ -759,7 +760,7 @@ console.log(x);
 
 </div>
 
-### 表达式的值 <div float-right text-4 mt-2 mb--2 op-60 font-serif font-bold> 依赖 </div>
+### 表达式的值 <div float-right> 依赖 </div>
 
 <v-clicks at="0">
 
@@ -776,16 +777,13 @@ console.log(x);
 
 ---
 
-<div mt--4>
+<div>
 
 # 无法精确追踪时 {.!text-4xl}
 
 </div>
 
-- **自我触发**：对自身先前的写入会触发重新分析
-- **回调触发**：后续对其依赖的写入会触发重新分析
-
-| **情况** | **例子** | **自我触发** | **回调触发** |
+| **情况** | **例子** | **循环？** | **回调？** |
 | ---- | ---- | ---- | ---- |
 | 未知次数的循环 | `while (unknown) { ... }` | 是 | 否 |
 | 未知深度的递归 | `function rec() { rec() }` | 是 | 是 |
@@ -1530,7 +1528,7 @@ table {
 layout: end
 ---
 
-<div text-80 v-drag="[369,141,40,40,-12]" op-50>
+<div text-40 v-drag="[-2,224,40,40,-12]" op-50>
 <carbon-star-filled text-yellow absolute />
 <carbon-star-filled text-white op-20 absolute />
 </div>
