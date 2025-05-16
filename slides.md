@@ -754,9 +754,14 @@ console.log(x);
 
 ### 控制流依赖
 
-<div v-click="[2,3]">
+<div v-if="$clicks > 1 && $clicks < 3" h-10>
 
-- `unknown` 为真值 [*covered later]{.op-60.text-xs.italic}
+- `unknown` 为真值
+
+</div>
+<div v-else h-10>
+
+- [无]{.op-70}
 
 </div>
 
@@ -1528,12 +1533,12 @@ table {
 layout: end
 ---
 
-<div text-40 v-drag="[-2,224,40,40,-12]" op-50>
+<!-- <div text-40 v-drag="[-23,249,40,40,-12]" op-50>
 <carbon-star-filled text-yellow absolute />
 <carbon-star-filled text-white op-20 absolute />
-</div>
+</div> -->
 
-<div text-3xl>
+<div text-3xl mt-8>
 
 感谢聆听！
 
