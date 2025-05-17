@@ -1549,3 +1549,10 @@ layout: end
 项目仓库: <span font-mono tracking-0>github.com/kermanx/tree-shaker</span><br>
 &emsp;幻灯片: <span font-mono tracking-0>kermanx.com/jsshaker-ustc</span>
 </div>
+
+---
+
+# Caveats
+
+- 最初的灵感来源: https://github.com/rollup/rollup/pull/5443 by 刘良宇 计20
+- Online Demo: https://kermanx.com/tree-shaker/
