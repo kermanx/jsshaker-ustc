@@ -161,6 +161,7 @@ Gzip 压缩，减小传输体积
 
 <div v-drag="[264,119,55,NaN]" text-xs text-red>函数特化</div>
 
+<div v-drag="[98,223,76,NaN]" text-xs text-blue>空白字符删除</div>
 
 <style>
 .slidev-code-wrapper {
@@ -318,12 +319,12 @@ const counter2 = makeCounter("2");
 
 <div v-drag="[241,174,609,NaN]" text-red>
 函数是一等公民
-<span text-black text-sm pl-1>(<span font-mono>67.08%</span> 的项目使用该特性<sup op-50>1</sup>)</span>
+<span text-black text-sm pl-1>(<span font-mono text-lg>67.08%</span> 的项目使用该特性<sup op-50>1</sup>)</span>
 </div>
 
 <div v-drag="[124,300,484,NaN]" text-red>
 动态属性名
-<span text-black text-sm pl-1>(<span font-mono>24.05%</span> 的项目使用该特性<sup op-50>1</sup>)</span>
+<span text-black text-sm pl-1>(<span font-mono text-lg>24.05%</span> 的项目使用该特性<sup op-50>1</sup>)</span>
 </div>
 
 <div v-drag="[183,255,152,NaN]" text-red>原型链的使用</div>
@@ -792,7 +793,7 @@ console.log(x);
 | ---- | ---- | ---- | ---- |
 | 未知次数的循环 | `while (unknown) { ... }` | 是 | 否 |
 | 未知深度的递归 | `function rec() { rec() }` | 是 | 是 |
-| 生成器 / 异步函数 | `async gen*() { ... }` | 否 | 是 |
+| 生成器 / 异步函数 | `async function* () { ... }` | 否 | 是 |
 | 完全失去追踪 | `setTimeout(() => { ... }, 1)` | 是 | 是 |
 
 ---
