@@ -1,6 +1,6 @@
 ---
 theme: seriph
-background: https://cdn.jsdelivr.net/gh/USTCdev/slidev-theme-ustc@master/assets/backgrounds/bg2.jpg
+background: /bg.jpg
 title: JsShaker
 info: ""
 mdc: true
