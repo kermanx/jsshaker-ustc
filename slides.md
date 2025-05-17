@@ -1551,8 +1551,260 @@ layout: end
 </div>
 
 ---
+layout: end
+---
+
+(后面的内容非正文)
+
+---
 
 # Caveats
 
 - 最初的灵感来源: https://github.com/rollup/rollup/pull/5443 by 刘良宇 计20
 - Online Demo: https://kermanx.com/tree-shaker/
+- 旧版 slides，包含更多技术细节：https://github.com/kermanx/tree-shaker-2025-5-slides
+
+---
+zoom: 0.8
+---
+
+
+# Demo - Constant Folding
+
+<table><tbody><tr><td width="500px"> Input </td><td width="500px"> Output </td></tr><tr>
+<td valign="top">
+
+```js
+export function f() {
+  function g(a) {
+    if (a) console.log("effect");
+    else return "str";
+  }
+  let { ["x"]: y = 1 } = { x: g("") ? undefined : g(1) };
+  return y;
+}
+```
+
+</td><td valign="top">
+
+```js
+export function f() {
+  return 1;
+}
+```
+
+</td></tr></tbody></table>
+
+---
+zoom: 0.8
+---
+
+# Demo - Remove Dead Code
+
+<table><tbody><tr><td width="500px"> Input </td><td width="500px"> Output </td></tr><tr>
+<td valign="top">
+
+```js
+function f(value) {
+  if (value) console.log(`${value} is truthy`);
+}
+f(1);
+f(0);
+
+function g(t1, t2) {
+  if (t1 && t2) console.log(2);
+  else if (t1 || t2) console.log(1);
+  else console.log(0);
+}
+g(true, true);
+g(false, false);
+```
+
+</td><td valign="top">
+
+```js
+function f() {
+  {
+    console.log("1 is truthy");
+  }
+}
+f();
+
+function g(t1) {
+  if (t1 && true) console.log(2);
+  else {
+    console.log(0);
+  }
+}
+g(true);
+g(false);
+```
+
+</td></tr></tbody></table>
+
+---
+zoom: 0.8
+---
+
+# Demo - Object Property Mangling
+
+<table><tbody><tr><td width="500px"> Input </td><td width="500px"> Output </td></tr><tr>
+<td valign="top">
+
+```js
+export function main() {
+  const obj = {
+    foo: v1,
+    [t1 ? "bar" : "baz"]: v2,
+  };
+  const key = t2 ? "foo" : "bar";
+  console.log(obj[key]);
+}
+```
+
+</td><td valign="top">
+
+```js
+export function main() {
+  const obj = {
+    a: v1,
+    [t1 ? "b" : "c"]: v2,
+  };
+  const key = t2 ? "a" : "b";
+  console.log(obj[key]);
+}
+```
+
+</td></tr></tbody></table>
+
+---
+zoom: 0.8
+---
+
+# Demo - Class Tree Shaking
+
+<table><tbody><tr><td width="500px"> Input </td><td width="500px"> Output </td></tr><tr>
+<td valign="top">
+
+```js
+class A {
+  method(x) {
+    console.log("A", x);
+  }
+  static static_prop = unknown;
+}
+class B extends A {
+  method(x) {
+    console.log("B", x);
+  }
+  unused() {
+    console.log("unused");
+  }
+}
+new B().method(A.static_prop);
+```
+
+</td><td valign="top">
+
+```js
+class A {
+  static a = unknown;
+}
+class B extends A {
+  a(x) {
+    console.log("B", x);
+  }
+}
+new B().a(A.a);
+```
+
+</td></tr></tbody></table>
+
+---
+zoom: 0.8
+---
+
+# Demo - JSX
+
+> `createElement` also works, if it is directly imported from `react`.
+
+<table><tbody><tr><td width="500px"> Input </td><td width="500px"> Output </td></tr><tr>
+<td valign="top">
+
+```jsx
+function Name({ name, info }) {
+  return (
+    <span>
+      {name}
+      {info && <sub> Lots of things never rendered </sub>}
+    </span>
+  );
+}
+export function Main() {
+  return <Name name={"world"} />;
+}
+```
+
+</td><td valign="top">
+
+```jsx
+function Name() {
+  return (
+    <span>
+      {"world"}
+      {}
+    </span>
+  );
+}
+export function Main() {
+  return <Name />;
+}
+```
+
+</td></tr></tbody></table>
+
+---
+zoom: 0.8
+---
+
+# Demo - React.js
+
+> We also have special handling for some React.js APIs. For example, React Context, `memo`, `forwardRef`, `useMemo`, etc.
+
+<table><tbody><tr><td width="500px"> Input </td><td width="500px"> Output </td></tr><tr>
+<td valign="top">
+
+```jsx
+import React from "react";
+const MyContext = React.createContext("default");
+function Inner() {
+  const value = React.useContext(MyContext);
+  return <div>{value}</div>;
+}
+export function main() {
+  return (
+    <MyContext.Provider value="hello">
+      <Inner />
+    </MyContext.Provider>
+  );
+}
+```
+
+</td><td valign="top">
+
+```jsx
+import React from "react";
+const MyContext = React.createContext();
+function Inner() {
+  return <div>{"hello"}</div>;
+}
+export function main() {
+  return (
+    <MyContext.Provider>
+      <Inner />
+    </MyContext.Provider>
+  );
+}
+```
+
+</td></tr></tbody></table>
