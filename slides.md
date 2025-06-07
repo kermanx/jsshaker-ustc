@@ -1541,7 +1541,7 @@ layout: end
 
 <div text-3xl mt-8>
 
-感谢聆听！
+谢谢大家！
 
 </div>
 
@@ -1571,7 +1571,7 @@ zoom: 0.8
 
 # Demo - Constant Folding
 
-<table><tbody><tr><td width="500px"> Input </td><td width="500px"> Output </td></tr><tr>
+<table><tbody><tr><td > Input </td><td > Output </td></tr><tr>
 <td valign="top">
 
 ```js
@@ -1601,7 +1601,7 @@ zoom: 0.8
 
 # Demo - Remove Dead Code
 
-<table><tbody><tr><td width="500px"> Input </td><td width="500px"> Output </td></tr><tr>
+<table><tbody><tr><td > Input </td><td > Output </td></tr><tr>
 <td valign="top">
 
 ```js
@@ -1648,7 +1648,7 @@ zoom: 0.8
 
 # Demo - Object Property Mangling
 
-<table><tbody><tr><td width="500px"> Input </td><td width="500px"> Output </td></tr><tr>
+<table><tbody><tr><td > Input </td><td > Output </td></tr><tr>
 <td valign="top">
 
 ```js
@@ -1683,7 +1683,7 @@ zoom: 0.8
 
 # Demo - Class Tree Shaking
 
-<table><tbody><tr><td width="500px"> Input </td><td width="500px"> Output </td></tr><tr>
+<table><tbody><tr><td > Input </td><td > Output </td></tr><tr>
 <td valign="top">
 
 ```js
@@ -1728,7 +1728,7 @@ zoom: 0.8
 
 > `createElement` also works, if it is directly imported from `react`.
 
-<table><tbody><tr><td width="500px"> Input </td><td width="500px"> Output </td></tr><tr>
+<table><tbody><tr><td > Input </td><td > Output </td></tr><tr>
 <td valign="top">
 
 ```jsx
@@ -1771,7 +1771,7 @@ zoom: 0.8
 
 > We also have special handling for some React.js APIs. For example, React Context, `memo`, `forwardRef`, `useMemo`, etc.
 
-<table><tbody><tr><td width="500px"> Input </td><td width="500px"> Output </td></tr><tr>
+<table><tbody><tr><td > Input </td><td > Output </td></tr><tr>
 <td valign="top">
 
 ```jsx
