@@ -1,11 +1,13 @@
 import {
   transformerNotationHighlight,
+  transformerNotationDiff,
 } from '@shikijs/transformers'
 import { defineShikiSetup } from '@slidev/types'
 
 export default defineShikiSetup(() => {
   return {
     transformers: [
+      transformerNotationDiff(),
       transformerNotationHighlight(),
       {
         preprocess(code) {

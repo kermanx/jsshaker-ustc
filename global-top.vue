@@ -1,10 +1,10 @@
 <template>
   <div v-if="$page > 1" fixed inset-x-2 bottom-1 text-10px op-40 flex items-center>
     <div>
-      JsShaker: 一个 JavaScript 代码体积优化器
+      JsShaker: Dependency-Tracked Abstract Interpretation for JavaScript Code Size Optimization
     </div>
     <div flex-grow />
-    <div class="font-[Consolas]">
+    <div class="font-[Consolas,Menlo,Monaco,monospace]">
       https://github.com/kermanx/tree-shaker
     </div>
     <div text-sm op-40 mb-1>

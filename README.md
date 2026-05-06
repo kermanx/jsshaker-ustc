@@ -1,4 +1,4 @@
-# Tree-shaker slides for USTC, 2025 May
+# JsShaker slides for USTC, 2026 May
 
 - Online slides: https://kermanx.com/jsshaker-ustc/
-- The project: https://github.com/kermanx/tree-shaker
+- The project: https://github.com/kermanx/jsshaker

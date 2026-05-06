@@ -100,3 +100,52 @@ code:not(.shiki *) {
   font-weight: 600;
   font-size: 0.9rem;
 }
+
+.small-table table {
+  th, td {
+    padding: 4px 1rem;
+  }
+
+    /* 第一列：紧贴内容，不 grow */
+  th:first-child,
+  td:first-child {
+    width: 1%;
+    white-space: nowrap;
+    --uno: text-sm;
+  }
+
+  /* 第二列：尽可能大，占据剩余全部空间 */
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 100%;
+  }
+}
+
+.slidev-code .diff.remove {
+    background-color: #a5000020;
+}
+
+.slidev-code .diff.remove:before {
+    content: "-";
+    color: #a50000;
+    --uno: text-1.2em;
+}
+
+.slidev-code .diff.add {
+    background-color: #18794e10;
+}
+
+.slidev-code .diff.add:before {
+    content: "+";
+    color: #18794e;
+    --uno: text-1.2em;
+}
+
+.slidev-code .diff:before {
+    position: absolute;
+    left: 0.8em;
+}
+
+.slidev-code.has-diff .line {
+  padding-left: 1.4em;
+}
