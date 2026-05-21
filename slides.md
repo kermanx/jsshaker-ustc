@@ -32,20 +32,22 @@ JavaScript Code Size Optimization
 
 # 项目时间线
 
+![1778844743833](./assets/1778844743833.png){.w-190.ml-8.mt--4}
+
+<!-- 
 <div absolute left-364px top-301px w-358px h-190px bg-green-400 px-4 py-2 rounded-lg z--100>
 <div absolute left-full pl-2 text-3xl font-bold text-green-600>
 NEW
 </div>
 </div>
 
+`1``mermaid {class:'mt--12 ml-0'}
 
-```mermaid {class:'mt--12 ml-0'}
----
 config:
   theme: 'base'
   timeline:
     disableMulticolor: true
----
+
 timeline TD
   2024.8 : 项目启动
   2024.10 : 初步实现项目架构
@@ -53,7 +55,7 @@ timeline TD
   2025.12 : 实现函数摘要，提升分析速度
   2026.1 : 构建新版测试集，进一步验证优化效果
   2026.3 : 论文投稿 OOPSLA
-```
+`1`` -->
 
 <!--
 <div v-drag="[56,495,0,0]">
@@ -435,7 +437,7 @@ console.log(user.a, user.b); // [!code ++]
 
 # Evaluation: Effectiveness
 
-在所有测试用例上取得最优，*额外*删除平均 27.6%，最高可达 66.7%的代码体积：
+在所有测试用例上取得最优，*额外*删除 <strong>平均 27.6%，最高 66.7%</strong> 的代码体积：
 
 ![1777908797419](./assets/1777908797419.png){.w-208.ml--2}
 
@@ -443,8 +445,8 @@ console.log(user.a, user.b); // [!code ++]
 
 # Evaluation: Ablation Study
 
-左：分支折叠、常量折叠和属性名简化这三个高级优化分别贡献了平均 12.0%, 12.7% 和 3% 的体积缩减。<br>
-右：JsShaker 安全的属性名简化可以识别并优化平均约 13.95% 的可优化属性名。
+左：分支折叠、常量折叠和属性名简化这三个高级优化分别贡献了平均 **12.0%**, **12.7%** 和 **3%** 的体积缩减。<br>
+右：JsShaker 安全的属性名简化可以识别并优化平均约 **13.95%** 的可优化属性名。
 
 ![1777908828139](./assets/1777908828139.png){.mt--2}
 
@@ -452,7 +454,7 @@ console.log(user.a, user.b); // [!code ++]
 
 # Evaluation: Performance
 
-左：JsShaker 平均引入了 14% 的额外构建时间；右：MaxRecDepth=2 时较好地平衡了分析速度和优化效果。
+左：JsShaker 平均引入了 **14%** 的额外构建时间；右：MaxRecDepth=2 时较好地平衡了分析速度和优化效果。
 
 ![1777908843177](./assets/1777908843177.png){.w-180.mt--2}
 
@@ -460,10 +462,28 @@ console.log(user.a, user.b); // [!code ++]
 
 # Evaluation: Function Summary Effectiveness
 
-函数摘要技术的引入，将优化速度提升了平均 1.58，最高 23.28 倍：
+函数摘要技术的引入，将优化速度提升了<strong>平均 1.58，最高 23.28 倍</strong>：
 
 ![1777973020931](./assets/1777973020931.png)
 
+---
+
+<div h-2 />
+
+# 鲲鹏算力底座
+
+- 将 JsShaker 部署于鲲鹏服务器集群，为大规模工程提供高性能构建服务
+- 显著缩短 JavaScript 代码优化与打包时间，提升开发效率
+- 支持弹性扩展，满足不同规模项目的构建需求
+- 针对鲲鹏算力平台做针对性的调优
+
+<div h-12 />
+
+# 昇腾智能增强
+
+- 引入昇腾 AI 加速器，探索 AI 辅助代码优化的可能性
+- 通过机器学习模型预测代码的可优化模式，进一步提升优化效果和速度
+  
 ---
 layout: end
 ---
