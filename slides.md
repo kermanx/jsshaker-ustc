@@ -77,9 +77,36 @@ timeline TD
 
 - Example：无用代码的静态优化空间巨大：
 
-![1777906920078](./assets/1777906920078.png)
+```ts {*}{class:'children:text-16px!'}
+function f(x) {
+  if (x > 0) {
+    return +x;
+  } else {
+    return input();
+  }
+}
+console.log(f("42"), f(null));
+```
 
-<div v-drag="[581,291,18,26]" font-bold>
+
+<div v-drag="[481,272,437,NaN]">
+
+```ts {*}{class:'children:text-16px!'}
+function f() {
+
+
+
+  return input();
+
+}
+console.log(42, f());
+```
+
+</div>
+
+<!-- ![1777906920078](./assets/1777906920078.png) -->
+
+<div v-drag="[426,346,40,52]" font-bold text-5xl>
 →
 </div>
 
@@ -121,6 +148,10 @@ Web 性能受损 — 大体积 bundle 延长网络下载时间，增加 CPU 解�
 
 ---
 
+![1779544540055](./assets/1779544540055.png){.fixed.inset-0}
+
+---
+
 # 现有技术路线
 
 | **技术路线** | **代表工具** | **核心局限** |
@@ -156,8 +187,8 @@ Web 性能受损 — 大体积 bundle 延长网络下载时间，增加 CPU 解�
 Minifiers
 </div>
 
-<div absolute left-44 top-90 text-2xl text-gray-900>
-Prepack
+<div absolute left-44 top-88 text-2xl text-gray-900>
+Prepack/<br>Evolvers
 </div>
 
 <div absolute left-87 top-62 text-2xl leading-1em text-gray-900>
